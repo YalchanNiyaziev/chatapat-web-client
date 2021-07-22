@@ -1,7 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
+import {Route, Switch, withRouter} from "react-router-dom";
 
-function App() {
+const  App = () => {
+  React.useEffect(() => {
+    if (location.pathname !== '/login') {
+      props.getCurrentUser();
+    }
+  }, [location, props]);
   return (
     <div className="App">
       <header className="App-header">
@@ -19,7 +25,24 @@ function App() {
         </a>
       </header>
     </div>
+  // <React.Fragment>
+  //   <Switch>
+  //     {/* key causes component rerender for different routes that are using one component */}
+  //     <Route
+  //         path={allRoutes.login.path}
+  //         component={allRoutes.login.component}
+  //         key={allRoutes.login.key}
+  //         exact={true}
+  //     />
+  //     {/* <Route path={allRoutes.notFound.path} component={NotFound} /> */}
+  //
+  //     <Route path={allRoutes.base.path} component={AppLayout} />
+  //   </Switch>
+  // </React.Fragment>
   );
 }
 
+// const mapDispatchToProps = { getCurrentUser };
+//
+// export default connect(null, mapDispatchToProps)(withRouter(App));
 export default App;
