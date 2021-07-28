@@ -1,6 +1,6 @@
-import {ChatHome} from "../components/ChatHome";
-import Login from "../components/Login";
-import {Register} from "../components/Register";
+import {ChatHome} from "../screens/ChatHome";
+import Login from "../screens/Login";
+import {Register} from "../screens/Register";
 
 const appRoutes = {
     base: {

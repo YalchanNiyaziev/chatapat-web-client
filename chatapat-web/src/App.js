@@ -1,11 +1,14 @@
+import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {Route, Switch, withRouter} from "react-router-dom";
+import {useLocation} from "react-router";
 
-const  App = () => {
+const  App = props => {
+  const location = useLocation();
   React.useEffect(() => {
     if (location.pathname !== '/login') {
-      props.getCurrentUser();
+      // props.getCurrentUser();
     }
   }, [location, props]);
   return (

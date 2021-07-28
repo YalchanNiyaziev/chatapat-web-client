@@ -1,42 +1,45 @@
 import GeneralMessage from "../commons/GeneralMessage";
+import useFormLogin from "../../hooks/useFormLogin";
+import Control from "../commons/Control";
 
 const LoginForm = props => {
     let { getCartData, onSuccess } = props;
     const {
-        registerValidationFor,
+        // registerValidationFor,
         onSubmit,
         generalErrorList,
-        fieldErrorFor,
-        getWarningMessage,
-    } = useFormLogin({
-        getCartData,
-        onSuccess,
-    });
+        // fieldErrorFor,
+        // getWarningMessage,
+    } = useFormLogin(props);
+    // {
+    //     getCartData,
+    //     onSuccess,
+    // });
 
     const formElement = (
         <form noValidate id="loginForm" onSubmit={onSubmit}>
             <div className="text-center">
-                <img src={melindaLogo} alt="Melinda" />
+                <img src="/public/logo192.png" alt="Chatapat logo" />
             </div>
-            <p className="text-center login-text">Powered by Melinda®</p>
+            <p className="text-center login-text">Powered by Chatapat®</p>
             <GeneralMessage className="c-msg" errorList={generalErrorList} />
             <Control
-                error={fieldErrorFor.username?.message}
-                registerRef={registerValidationFor.username}
+                // error={fieldErrorFor.username?.message}
+                // registerRef={registerValidationFor.username}
                 name="username"
                 type="username"
                 placeholder="Username *"
                 id="username"
             />
             <Control
-                error={fieldErrorFor.password?.message}
-                registerRef={registerValidationFor.passwod}
+                // error={fieldErrorFor.password?.message}
+                // registerRef={registerValidationFor.passwod}
                 name="password"
                 type="password"
                 placeholder="Password *"
                 id="password"
             />
-            <LoginFormWarningMessage message={getWarningMessage()} />
+            {/*<LoginFormWarningMessage message={getWarningMessage()} />*/}
             <div className="row">
                 <div className={'col-6'}>
                     <button className="btn btn-primary px-4" type="submit">

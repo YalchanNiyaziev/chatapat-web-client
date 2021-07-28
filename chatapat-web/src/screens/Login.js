@@ -1,10 +1,10 @@
-import LoginForm from '../modules/login/LoginForm';
+import LoginForm from '../components/login/LoginForm';
 
 const Login = () => {
     return (
         <div className="container">
             <div className="row justify-content-center">
-                <h1 className="display-4 mb-5 mt-5">Roboadvisor Admin</h1>
+                <h1 className="display-4 mb-5 mt-5">Chatapat</h1>
             </div>
             <div className="row justify-content-center">
                 <div className="col-md-5 login-form">
