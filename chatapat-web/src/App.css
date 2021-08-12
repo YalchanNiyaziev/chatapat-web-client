@@ -1,38 +1,89 @@
-.App {
-  text-align: center;
+body .p-button {
+  background-color: #63c2de;
+  border: 1px solid #63c2de;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body .p-button:enabled:hover {
+  background-color: #43b6d7;
+  border-color: #39b2d5;
+}
+.p-datatable-thead .p-column-title {
+  white-space: nowrap !important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.p-datatable .p-sortable-column-icon {
+  display: inline;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.list-actions {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin-bottom: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.list-actions a {
+  cursor: pointer;
+  color: #43b6d7 !important;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.list-actions a:hover {
+  text-decoration: underline;
+}
+
+.submenu .nav {
+  background: #f4f4f4;
+}
+
+.submenu .nav-item {
+  width: 100%;
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.image-link-wrap {
+  padding: 10px;
+  border: 1px solid #33cc99;
+  background: #eafff8;
+}
+
+.image-link-wrap p {
+  word-break: break-all;
+}
+
+.p-toast-top-right {
+  top: 80px;
+}
+
+.p-toast .p-toast-message .p-toast-message-content .p-toast-summary {
+  font-weight: normal;
+}
+
+.p-toast .p-toast-message.p-toast-message-error {
+  border-left: 5px solid #9b0000;
+  color: #9b0000;
+}
+.p-toast .p-toast-message.p-toast-message-error .p-toast-message-icon,
+.p-toast .p-toast-message.p-toast-message-error .p-toast-icon-close {
+  color: #9b0000;
+}
+
+.p-sidebar {
+  z-index: 999999 !important;
+}
+
+.p-sidebar-mask {
+  z-index: 999998 !important;
+}
+
+@supports (-ms-ime-align: auto) {
+  /*only for edge*/
+  body .p-datatable.p-datatable-responsive .p-datatable-tbody > tr > td {
+    border: 1px solid rgba(234, 234, 234, 0.63);
   }
-  to {
-    transform: rotate(360deg);
+}
+
+@media screen and (max-width: 40em) {
+  .p-datatable-responsive .p-datatable-tbody > tr > td .p-column-title {
+    min-width: 50%;
   }
 }

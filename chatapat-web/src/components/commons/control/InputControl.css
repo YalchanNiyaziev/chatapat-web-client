@@ -1,0 +1,368 @@
+.input-group label {
+    width: 100%;
+    color: #7b7b7b;
+}
+
+.p-dropdown label.p-dropdown-label {
+    color: #1b1d23;
+}
+
+label.checkbox-label {
+    display: inline-flex;
+    align-items: center;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+input[type='checkbox'].form-control {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+}
+
+label.checkbox-label input[type='checkbox'].form-control,
+label.checkbox-label .p-checkbox {
+    margin-right: 5px;
+}
+
+.form-control-block {
+    margin-bottom: 20px;
+}
+
+.form-control-block label {
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.error-message {
+    color: red;
+    margin-top: 5px;
+}
+
+.p-autocomplete.invalid-input .p-autocomplete-input,
+.p-autocomplete.invalid-input .p-autocomplete-dropdown,
+.invalid-input {
+    border-color: red !important;
+}
+
+.p-calendar {
+    width: 100%;
+    height: calc(2.0625rem + 2px);
+}
+
+.p-calendar.form-control,
+.p-dropdown.form-control,
+.p-autocomplete.form-control {
+    padding: 0;
+}
+
+.editor {
+    width: 100%;
+    height: 200px;
+    margin-bottom: 20px;
+}
+
+.p-calendar.form-control,
+.p-autocomplete.form-control {
+    border: none;
+    height: auto;
+}
+
+textarea.form-control {
+    min-height: 150px;
+}
+
+.p-autocomplete.form-control input[type='text'],
+.p-autocomplete-multiple-container {
+    width: 100%;
+}
+
+.p-calendar.form-control input[type='text'] {
+    width: calc(100% - 2.357em);
+    border: 1px solid #e4e7ea;
+}
+
+.errorMsg {
+    color: #f44336;
+    margin: 0px;
+    display: block;
+    width: 100%;
+}
+
+.stretch-form-item > div {
+    width: 100% !important;
+}
+
+.inline-group {
+    display: inline-flex;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.inline-group > span {
+    width: 100% !important;
+}
+
+.inner-field-padding-left {
+    padding-left: 8px !important;
+}
+
+.inner-field-padding-right {
+    padding-right: 8px !important;
+}
+
+body .category-dropdown .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+    padding: 0;
+}
+
+.dropdown_group_option p {
+    color: #d2d2d2;
+    margin-bottom: 0;
+}
+
+.dropdown_group_option p.label {
+    padding: 5px 5px 5px 28px;
+}
+
+.dropdown_group_option p.group {
+    padding: 5px 5px 5px 15px;
+    font-weight: bold;
+}
+
+.dropdown_group_option p.group:hover {
+    background: #fff;
+}
+
+.close-group-wrapper {
+    display: inline-block;
+    margin-bottom: -25px;
+    z-index: 9999;
+}
+
+.close-group-wrapper .close {
+    margin-right: -10px;
+    color: #f86c6b !important;
+    text-shadow: none;
+    transition: 0.3s;
+}
+
+@media (max-width: 500px) {
+    .modalLabels {
+        margin-bottom: 0.1rem !important;
+        margin-top: 0.4rem !important;
+    }
+    .mfa-button {
+        margin-top: 5px;
+        margin-right: 10px !important;
+        order: 1;
+    }
+}
+
+body .p-multiselect-panel .p-multiselect-header .p-multiselect-filter-container {
+    width: 91%;
+}
+
+.form-control:hover,
+body .p-multiselect:not(.p-disabled):hover,
+body .p-inputtext:enabled:hover {
+    border-color: #999 !important;
+}
+
+.input-group > .input-group-prepend + .form-control {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+/* Resetting the border radius with css only for the left corners, for the right corners is reset in the Input.tsx with typescript */
+.input-group > .form-control.border-radius-right-none {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.mfa-label {
+    width: auto !important;
+    order: 2;
+}
+.mfa-wrapper {
+    display: flex;
+}
+.mfa-button {
+    margin-right: 10px !important;
+    order: 1;
+}
+body .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+    background-color: #33cc99 !important;
+}
+body .p-inputswitch .p-inputswitch-slider {
+    background-color: #5c6873 !important;
+}
+
+.upper-span {
+    width: 100%;
+    display: flex;
+    align-items: inherit;
+    justify-content: inherit;
+}
+
+.lower-span {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: 0;
+    position: absolute;
+    overflow: hidden;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.multi-select-span {
+    display: inline-flex;
+    transition: none;
+    align-items: center;
+    flex: 0 0 auto;
+    width: 48px;
+    color: rgba(0, 0, 0, 0.54);
+    height: 48px;
+    padding: 0;
+    font-size: 1.5rem;
+    text-align: center;
+    border-radius: 50%;
+    border: 0;
+    margin: 0;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    user-select: none;
+    vertical-align: middle;
+    justify-content: center;
+    -moz-appearance: none;
+    text-decoration: none;
+    background-color: transparent;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.svg-style {
+    fill: currentColor;
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    font-size: 24px;
+    transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    user-select: none;
+    flex-shrink: 0;
+}
+
+.checkbox-input {
+    top: 0;
+    left: 0;
+    width: 100%;
+    cursor: inherit;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    padding: 0;
+    position: absolute;
+}
+
+.header-row {
+    padding-left: 0 !important;
+}
+
+.regular-item-row {
+    padding-left: 15px !important;
+}
+
+input[disabled],
+select[disabled] {
+    cursor: not-allowed;
+}
+
+body .p-multiselect {
+    border-color: #cccccc;
+    background: #fdfdfd;
+}
+
+body .p-multiselect .p-multiselect-label {
+    padding: 0;
+    display: flex;
+    cursor: default;
+}
+
+.multiselect-selected-item {
+    margin-right: 10px;
+    background: #cfd8dc;
+    padding: 0 0 0 10px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.multiselect-remove-item {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #f44336;
+    display: inline-block;
+    padding: 0 5px;
+}
+
+.ql-container {
+    height: 75%;
+}
+
+body .p-button.delete-btn {
+    background-color: #f86c6b;
+    border: none;
+}
+
+body .p-button.delete-btn:enabled:hover {
+    background-color: #d33030;
+}
+
+body .p-button.add-btn {
+    background-color: #33cc99;
+    border: none;
+}
+
+body .p-button.add-btn:enabled:hover {
+    background-color: #28906d;
+}
+
+body .p-button.edit-btn {
+    background-color: #FAA945;
+    border: none;
+}
+
+body .p-button.edit-btn:enabled:hover {
+    background-color: #E08A1E;
+}
+
+body .p-button.info-btn {
+    background-color: #39c0e2;
+    border: none;
+}
+
+body .p-button.info-btn:enabled:hover {
+    background-color: #2ca6c5;
+}
+
+.label-info {
+    background: rgb(219, 219, 219);
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.trunkate option {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

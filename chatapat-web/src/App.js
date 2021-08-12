@@ -1,8 +1,10 @@
 import React from 'react';
+import 'font-awesome/css/font-awesome.min.css';
 import logo from './logo.svg';
 import './App.css';
 import {Route, Switch, withRouter} from "react-router-dom";
 import {useLocation} from "react-router";
+import {authenticatedRoutes, permittedAllRoutes} from "./routes/AppRoutes";
 
 const  App = props => {
   const location = useLocation();
@@ -11,37 +13,43 @@ const  App = props => {
       // props.getCurrentUser();
     }
   }, [location, props]);
+
+  const permittedRoutes = Object.keys(permittedAllRoutes).map(key => (
+      <Route
+        path={permittedAllRoutes[key].path}
+        component={permittedAllRoutes[key].component}
+        key={key}
+        exact={true}
+      />
+  ));
+  const authRoutes  = Object.keys(authenticatedRoutes).map(key => (
+      <Route
+          path={authenticatedRoutes[key].path}
+          component={authenticatedRoutes[key].component}
+          key={key}
+          exact={true}
+      />
+  ));
+  // const routes = Object.keys()
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  // <React.Fragment>
-  //   <Switch>
-  //     {/* key causes component rerender for different routes that are using one component */}
-  //     <Route
-  //         path={allRoutes.login.path}
-  //         component={allRoutes.login.component}
-  //         key={allRoutes.login.key}
-  //         exact={true}
-  //     />
-  //     {/* <Route path={allRoutes.notFound.path} component={NotFound} /> */}
-  //
-  //     <Route path={allRoutes.base.path} component={AppLayout} />
-  //   </Switch>
-  // </React.Fragment>
+
+  <React.Fragment>
+    <Switch>
+      {/* key causes component rerender for different routes that are using one component */}
+      {/*<Route*/}
+      {/*    path={permittedAllRoutes.login.path}*/}
+      {/*    component={permittedAllRoutes.login.component}*/}
+      {/*    key={allRoutes.login.key}*/}
+      {/*    exact={true}*/}
+      {/*/>*/}
+      {/* <Route path={allRoutes.notFound.path} component={NotFound} /> */}
+
+      {/*<Route path={allRoutes.base.path} component={AppLayout} />*/}
+
+      {permittedRoutes}
+      {authRoutes}
+    </Switch>
+  </React.Fragment>
   );
 }
 

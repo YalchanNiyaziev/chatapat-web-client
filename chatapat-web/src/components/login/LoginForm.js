@@ -1,15 +1,16 @@
 import GeneralMessage from "../commons/GeneralMessage";
 import useFormLogin from "../../hooks/useFormLogin";
-import Control from "../commons/Control";
+import InputControl from "../commons/control/InputControl";
+import './Login.css';
+
 
 const LoginForm = props => {
     let { getCartData, onSuccess } = props;
     const {
-        // registerValidationFor,
+        registerValidationFor,
         onSubmit,
         generalErrorList,
-        // fieldErrorFor,
-        // getWarningMessage,
+        fieldErrorFor,
     } = useFormLogin(props);
     // {
     //     getCartData,
@@ -19,21 +20,21 @@ const LoginForm = props => {
     const formElement = (
         <form noValidate id="loginForm" onSubmit={onSubmit}>
             <div className="text-center">
-                <img src="/public/logo192.png" alt="Chatapat logo" />
+                <img src="../../../public/logo192.png" alt="Chatapat logo" />
             </div>
             <p className="text-center login-text">Powered by Chatapat®</p>
             <GeneralMessage className="c-msg" errorList={generalErrorList} />
-            <Control
-                // error={fieldErrorFor.username?.message}
-                // registerRef={registerValidationFor.username}
+            <InputControl
+                error={fieldErrorFor.username?.message}
+                registerRef={registerValidationFor.username}
                 name="username"
                 type="username"
                 placeholder="Username *"
                 id="username"
             />
-            <Control
-                // error={fieldErrorFor.password?.message}
-                // registerRef={registerValidationFor.passwod}
+            <InputControl
+                error={fieldErrorFor.password?.message}
+                registerRef={registerValidationFor.password}
                 name="password"
                 type="password"
                 placeholder="Password *"

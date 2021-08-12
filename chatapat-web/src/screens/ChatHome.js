@@ -1,1 +1,4 @@
-export const ChatHome = 'this is chat home a component';
+const ChatHome = () => (
+    <div>this is chat home a component</div>
+);
+export default ChatHome;
