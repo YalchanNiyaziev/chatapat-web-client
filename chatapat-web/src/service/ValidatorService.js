@@ -8,7 +8,10 @@ class  ValidatorService {
             WRONG_EMAIL_FORMAT: `Invalid email format.`,
             PASSWORD_TOO_SHORT: `Password has to be at least 6 symbols`,
             INVALID_FIELDS: `Invalid fields`,
+            WRONG_USERNAME_OR_PASSWORD: 'Wrong username or password',
             MISSING_REQUIRED_FIELDS: `One or more of the fields are not filled correctly and have been colored red.`,
+            SERVER_COMMUNICATION_FAILURE: 'Connection timed out',
+            SOMETHING_WENT_WRONG: 'Unknown error',
         }
     }
     extractErrorsFromInvalidForm = (setErrorsFunction, setSuccess) => {

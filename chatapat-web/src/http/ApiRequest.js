@@ -26,6 +26,15 @@ class ApiRequest {
         );
     };
 
+    //!!! only admin MUST has the athorities to do it
+    getAllUsers = () =>{
+        return this.http.get(
+            this.serverApis.allUsers(),
+            this.requestHeaders('application/json')
+        );
+    };
+
+
 }
 
 export default ApiRequest;

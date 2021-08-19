@@ -17,12 +17,17 @@ axiosInstance.interceptors.request.use(config => {
 
 axiosInstance.interceptors.response.use(
     response => {
-        if(response.headers && response.headers['Authorization']) {
-            authService.storeToken(response.headers['Authorization']);
+        console.log("axiso rESPONSE ",response);
+        if (response.headers && (response.headers['authorization'] || response.headers['Authorization'])) {
+            console.log("Axious token ", response.headers['authorization']);
+            const token = response.headers['authorization']? response.headers['authorization']: response.headers['Authorization'];
+            authService.storeToken(token);
         }
         return response;
     },
-        error => {
+    error => {
+        console.log(error)
+        if (error && error.response && error.response.status) {
             switch (error.response.status) {
                 case 401:
                     if (window.location.href !== window.location.origin + permittedAllRoutes.login.path) {
@@ -33,8 +38,9 @@ axiosInstance.interceptors.response.use(
                 default:
                     break;
             }
+        }
 
-            return Promise.reject(error);
+        return Promise.reject(error);
     });
 
 export default axiosInstance;
