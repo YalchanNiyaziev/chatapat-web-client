@@ -12,6 +12,12 @@ class  ValidatorService {
             MISSING_REQUIRED_FIELDS: `One or more of the fields are not filled correctly and have been colored red.`,
             SERVER_COMMUNICATION_FAILURE: 'Connection timed out',
             SOMETHING_WENT_WRONG: 'Unknown error',
+        };
+
+        this.userStatus = {
+            ACTIVE: 'ACTIVE',
+            RECENTLY_ACTIVE: 'RECENTLY_ACTIVE',
+            AWAY: 'AWAY',
         }
     }
     extractErrorsFromInvalidForm = (setErrorsFunction, setSuccess) => {

@@ -1,4 +1,8 @@
-const ChatHome = () => (
-    <div>this is chat home a component</div>
-);
+import ChatConversationsSidebar from "../components/chat/ChatConversationsSidebar";
+
+const ChatHome = () => {
+    return (
+            <ChatConversationsSidebar/>
+    );
+};
 export default ChatHome;

@@ -7,5 +7,6 @@ export default class ServerApis {
 
     login = () => `${this.origin}${this.apiEndpoint}/auth/login`;
     register = () => `${this.origin}${this.apiEndpoint}/auth/register`;
+    userConversations = username => `${this.origin}${this.apiEndpoint}/conversations/${username}`;
     allUsers = () => `${this.origin}${this.apiEndpoint}${this.userOperationEndpoint}/users`
 }

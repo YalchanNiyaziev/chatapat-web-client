@@ -19,7 +19,7 @@ const  App = props => {
         path={permittedAllRoutes[key].path}
         component={permittedAllRoutes[key].component}
         key={key}
-        exact={true}
+        exact={permittedAllRoutes[key].exact}
       />
   ));
   const authRoutes  = Object.keys(authenticatedRoutes).map(key => (
@@ -27,7 +27,7 @@ const  App = props => {
           path={authenticatedRoutes[key].path}
           component={authenticatedRoutes[key].component}
           key={key}
-          exact={true}
+          exact={authenticatedRoutes[key].exact}
       />
   ));
   // const routes = Object.keys()
