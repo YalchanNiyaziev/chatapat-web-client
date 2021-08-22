@@ -29,6 +29,7 @@ const useFormLogin = props => {
                     history.push(authenticatedRoutes.main.path);
                 })
                 .catch( err => {
+                    console.log('login erro$', err);
                     if (err.response.status === 401) {
                         setGeneralErrorList([validator.errorMessages.WRONG_USERNAME_OR_PASSWORD]);
                     } else {

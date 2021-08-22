@@ -57,10 +57,24 @@ const useChatConversations = () => {
         }
     }
 
+    const getConversationPartnerNames = partner => {
+        if (!partner) {
+            return;
+        }
+        if (partner.chatName) {
+            return partner.chatName;
+        }
+        if (partner.firstName && partner.surName) {
+            return `${partner.firstName} ${partner.surName}`;
+        }
+        return partner.username;
+    }
+
     return {
         userInfo,
         conversations: userConversations,
         generalErrorList,
+        getConversationPartnerNames,
     }
 };
 
