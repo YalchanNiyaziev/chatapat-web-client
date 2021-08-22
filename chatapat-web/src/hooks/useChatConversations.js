@@ -28,15 +28,17 @@ const useChatConversations = () => {
                 if(res.data) {
                     const conversation = res.data.map(c => (
                         {
+                            conversationId: c.conversationId,
                             username: c.username,
                             chatName: c.chatName,
                             firstName: c.firstName,
                             surName: c.surName,
+                            status: c.status,
                             imageUrl: c.imageUrl,
                             lastMessage: c.lastMessage,
                             lastMessageSenderUsername: c.lastMessageSenderUsername,
                             lastMessageTs: formatMessageTs(c.lastMessageTs),
-                            status: c.status,
+                            messageStatus: c.messageStatus,
                         }
                     ));
                     setUserConversations(conversation);

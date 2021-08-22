@@ -40,7 +40,7 @@ export const authenticatedRoutes = {
 
     },
     conversation: {
-        path: '/chat/:partnerUsername',
+        path: '/chat/:conversationId',
         key: 'chatConversationHistory',
         component: ChatHome,
         exact: true

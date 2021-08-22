@@ -34,8 +34,8 @@ const getBadgeSeverityByUserStatus = partner => {
 
 }
 const ChatConversationsSidebar = () => {
-    const {partnerUsername} = useParams();
-    console.log('selected conversation partner name', partnerUsername);
+    const {conversationId} = useParams();
+    console.log('selected conversation id', conversationId);
     const {conversations, generalErrorList, userInfo} = useChatConversations();
     console.log('conversations@', conversations)
     return (
@@ -56,7 +56,7 @@ const ChatConversationsSidebar = () => {
                             emptyMessage="There is no conversations yet."
                             itemTemplate={(item) => {
                                 return (
-                                    < Link to={`${authenticatedRoutes.main.path}/${item.username}`}>
+                                    < Link to={`${authenticatedRoutes.main.path}/${item.conversationId}`}>
                                         <div
                                             // style={{border: '1px solid blue'}}
                                             className="py-4 col-3 d-inline-block">
