@@ -16,15 +16,15 @@ const ChatConversationHistory = props => {
         const formattedMessages = messages.map((m, index) => {
             if(sendByConversationPartnerCallback(m)) {
                 return(
-                    <div className="row bg-blue" key={index}>
+                    <div className="row bg-blue my-1 px-2" key={index} style={{minHeight: '2rem'}}>
                         {}
-                        <div className="bg-red">{m.content}</div>
+                        <div className="bg-red" style={{maxWidth: '20rem', height: '100%'}}>{m.content}</div>
                     </div>
                 );
             } else {
                 return (
-                    <div className="row bg-orange " key={index}>
-                        <div className="bg-pink">{m.content}</div>
+                    <div className="row bg-orange my-1 justify-content-end pr-2" key={index} style={{minHeight: '2rem'}}>
+                        <div className="bg-pink " style={{maxWidth: '20rem', height: '100%'}}>{m.content}</div>
                     </div>
                 );
             }
