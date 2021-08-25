@@ -327,6 +327,11 @@ body .p-button.add-btn {
     border: none;
 }
 
+body .p-button.send-btn {
+    background-color: #ffffff;
+    border: none;
+}
+
 body .p-button.add-btn:enabled:hover {
     background-color: #28906d;
 }

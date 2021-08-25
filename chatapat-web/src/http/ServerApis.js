@@ -10,5 +10,6 @@ export default class ServerApis {
     //TODO thing about changing below endoint from /api/conversation/{username} to /api/users/{username}/conversations
     userConversations = username => `${this.origin}${this.apiEndpoint}/conversations/${username}`;
     conversationHistory = conversationId => `${this.origin}${this.apiEndpoint}/conversations/${conversationId}/messages`;
+    userProfileInfo = username => `${this.origin}${this.apiEndpoint}${this.userOperationEndpoint}/users/${username}`;
     allUsers = () => `${this.origin}${this.apiEndpoint}${this.userOperationEndpoint}/users`
 }

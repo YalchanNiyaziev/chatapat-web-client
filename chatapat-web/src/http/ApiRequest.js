@@ -26,6 +26,13 @@ class ApiRequest {
         );
     };
 
+    getUserProfileInfo = username => {
+      return this.http.get(
+          this.serverApis.userProfileInfo(username),
+          this.requestHeaders('application/json')
+      );
+    };
+
     getUserConversations = username => {
         return this.http.get(
             this.serverApis.userConversations(username),

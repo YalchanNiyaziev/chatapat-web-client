@@ -1,5 +1,7 @@
 const tokenKey = 'token';
 const usernameKey = 'username';
+const userProfileImageKey = 'profileImage';
+
 export default class AuthService {
 
     storeToken = token => {
@@ -30,5 +32,20 @@ export default class AuthService {
 
     removeUsername = () => {
         return localStorage.removeItem(usernameKey);
+    }
+
+    storeProfileImage = profileImage => {
+        return localStorage.setItem(userProfileImageKey, profileImage);
+    };
+
+    getProfileImage = () => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem(userProfileImageKey);
+        }
+        return;
+    };
+
+    removeProfileImage = () => {
+        return localStorage.removeItem(userProfileImageKey);
     }
 }
