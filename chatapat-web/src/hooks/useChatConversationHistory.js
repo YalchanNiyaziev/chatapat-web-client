@@ -11,6 +11,7 @@ const useChatConversationHistory = conversationId => {
     const [generalErrorList, setGeneralErrorList] = useState([]);
 
     useEffect(() => {
+        if (conversationId) {
             api.getChatHistory(conversationId)
                 .then(res => {
                     console.log('messages !', res);
@@ -30,6 +31,7 @@ const useChatConversationHistory = conversationId => {
                     const [errorList] = axiosErrorHandler(err);
                     setGeneralErrorList(errorList);
                 })
+        }
     }, [api, conversationId]);
 
     //TODO move it to more generic place

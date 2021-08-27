@@ -8,7 +8,12 @@ const useAppLogout = props => {
 
 
     const logout = () => {
-        // TODO use REDUX
+        if(props && props.logutCallbacks) {
+            props.logutCallbacks.forEach(logoutCallback => {
+                logoutCallback();
+            });
+        }
+        //TODO use REDUX
         authService.removeToken();
         authService.removeUsername();
         authService.removeProfileImage();

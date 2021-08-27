@@ -2,7 +2,8 @@ export default class ServerApis {
     constructor() {
         this.origin = 'http://localhost:8080';
         this.apiEndpoint = '/api';
-        this.userOperationEndpoint = '/user-management';
+        this.userOperationEndpoint = '/user-management'
+        this.wsConnectionEndpoint = `/ws-connect`;
     };
 
     login = () => `${this.origin}${this.apiEndpoint}/auth/login`;
@@ -12,4 +13,9 @@ export default class ServerApis {
     conversationHistory = conversationId => `${this.origin}${this.apiEndpoint}/conversations/${conversationId}/messages`;
     userProfileInfo = username => `${this.origin}${this.apiEndpoint}${this.userOperationEndpoint}/users/${username}`;
     allUsers = () => `${this.origin}${this.apiEndpoint}${this.userOperationEndpoint}/users`
+
+    websocket = {
+      connect: () => `${this.origin}${this.wsConnectionEndpoint}`
+    };
+
 }

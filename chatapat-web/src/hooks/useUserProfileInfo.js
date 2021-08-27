@@ -37,10 +37,15 @@ const useUserProfileInfo = props => {
                     // TODO use REDUX
                     authService.storeProfileImage(profileInfo.picture);
                 }
+
             })
             .catch(err => {
                 const [errorList] = axiosErrorHandler(err);
                 setGeneralErrorList(errorList);})
+        return () => {
+            setGeneralErrorList([]);
+            setUserProfileInfo(null);
+        }
     } , [api, authService]);
     return {
         userProfileInfo,

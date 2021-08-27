@@ -1,5 +1,6 @@
 import useChatConversationHistory from "../../hooks/useChatConversationHistory";
 import {DataScroller} from "primereact/datascroller";
+import useWebSocketConnection from "../../hooks/useWebSocketConnection";
 
 const ChatConversationHistory = props => {
     const conversationId = props && props.conversationId ? props.conversationId : null;
@@ -9,9 +10,9 @@ const ChatConversationHistory = props => {
             generalErrorList,
             isConversationPartnerMessage
         } = useChatConversationHistory(conversationId);
-
+    
     console.log("my messages#", messages);
-    //TODO make chec for message type, for now only support TEXT messages
+    //TODO make check for message type, for now only support TEXT messages
     const displayMessages = (messages, sendByConversationPartnerCallback)=> {
         const formattedMessages = messages.map((m, index) => {
             if(sendByConversationPartnerCallback(m)) {

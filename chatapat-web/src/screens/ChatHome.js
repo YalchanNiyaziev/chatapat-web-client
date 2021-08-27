@@ -18,9 +18,11 @@ import {Button} from "primereact/button";
 import {faTelegramPlane} from "@fortawesome/free-brands-svg-icons";
 import LogoutItem from "../components/logout/LogoutItem";
 import ChatMainItem from "../components/chat/ChatMainItem";
+import useWebSocketConnection from "../hooks/useWebSocketConnection";
 
 const ChatHome = () => {
-    const {conversationId} = useParams();
+    const {conversationId} = useParams()
+    const {disconnect} = useWebSocketConnection( {onMessageReceiveEventHandler: () => {}});
     console.log('selected conversation id', conversationId);
 
     return (
@@ -49,7 +51,8 @@ const ChatHome = () => {
                 </div>
                 <div className="col-2" style={{
                     border: '2px solid blue',
-                }}><LogoutItem/>
+                }}><LogoutItem
+                logutCallbacks={[disconnect]}/>
                 </div>
             </div>
         </div>

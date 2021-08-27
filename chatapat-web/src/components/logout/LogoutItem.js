@@ -3,8 +3,8 @@ import {Button} from "primereact/button";
 import {faPaperclip, faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-const LogoutItem = () => {
-    const {logout} = useAppLogout();
+const LogoutItem = props => {
+    const {logout} = useAppLogout(props);
 
     return (<>
         <Button
