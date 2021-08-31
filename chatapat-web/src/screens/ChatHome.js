@@ -21,7 +21,7 @@ import ChatMainItem from "../components/chat/ChatMainItem";
 import useWebSocketConnection from "../hooks/useWebSocketConnection";
 
 const ChatHome = () => {
-    const {conversationId} = useParams()
+    const {conversationId, selectedUser} = useParams()
     const {disconnect} = useWebSocketConnection( {onMessageReceiveEventHandler: () => {}});
     console.log('selected conversation id', conversationId);
 
@@ -46,7 +46,8 @@ const ChatHome = () => {
                     {/*partner data*/}
 
                     <ChatMainItem
-                    conversationId={conversationId}/>
+                    conversationId={conversationId}
+                    selectedUser={selectedUser}/>
 
                 </div>
                 <div className="col-2" style={{

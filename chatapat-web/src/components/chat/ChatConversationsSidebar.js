@@ -31,7 +31,7 @@ const ChatConversationsSidebar = props => {
 
     const dataScrollerItemTemplate = item => {
         return (
-            < Link to={`${authenticatedRoutes.main.path}/${item.conversationId}`}>
+            < Link to={`${authenticatedRoutes.main.path}/${item.conversationId}/${item.username}`}>
                 <div
                     // style={{border: '1px solid blue'}}
                     className="py-4 col-3 d-inline-block">

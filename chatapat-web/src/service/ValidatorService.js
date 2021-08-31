@@ -1,4 +1,4 @@
-class  ValidatorService {
+class ValidatorService {
     constructor() {
         this.errorMessages = {
             MISSING_NAME: `Please, enter a username`,
@@ -20,6 +20,7 @@ class  ValidatorService {
             AWAY: 'AWAY',
         }
     }
+
     extractErrorsFromInvalidForm = (setErrorsFunction, setSuccess) => {
         if (setErrorsFunction) {
             return errors => {
@@ -44,6 +45,30 @@ class  ValidatorService {
             };
         }
     }
+    prepareUserStatus = (status) => {
+        const statusInfo = {
+            statusText: '',
+            statusColor: '',
+        }
+        if (status) {
+            switch (status) {
+                case this.userStatus.ACTIVE:
+                    statusInfo.statusText = 'Active';
+                    statusInfo.statusColor = '#34A835';
+                    break;
+                case this.userStatus.RECENTLY_ACTIVE:
+                    statusInfo.statusText = 'Recently active';
+                    statusInfo.statusColor = '#ffba01';
+                    break;
+                case this.userStatus.AWAY:
+                    statusInfo.statusText = 'Away';
+                    statusInfo.statusColor = '#e91224';
+                    break;
+            }
+        }
+        return statusInfo;
+    }
 
 }
+
 export default ValidatorService

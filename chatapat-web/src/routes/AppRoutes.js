@@ -40,10 +40,10 @@ export const authenticatedRoutes = {
 
     },
     conversation: {
-        path: '/chat/:conversationId',
+        path: '/chat/:conversationId/:selectedUser',
         key: 'chatConversationHistory',
         component: ChatHome,
-        exact: true
+        exact: true,
     }
     // chatUser: {
     //     path: '/chat/connection',

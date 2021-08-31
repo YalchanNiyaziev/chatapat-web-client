@@ -11,11 +11,13 @@ export default class ServerApis {
     //TODO thing about changing below endoint from /api/conversation/{username} to /api/users/{username}/conversations
     userConversations = username => `${this.origin}${this.apiEndpoint}/conversations/${username}`;
     conversationHistory = conversationId => `${this.origin}${this.apiEndpoint}/conversations/${conversationId}/messages`;
-    userProfileInfo = username => `${this.origin}${this.apiEndpoint}${this.userOperationEndpoint}/users/${username}`;
+    currentUserProfileInfo = username => `${this.origin}${this.apiEndpoint}${this.userOperationEndpoint}/users/${username}`;
+    searchChatUsers = () => `${this.origin}${this.apiEndpoint}${this.userOperationEndpoint}/users/search`;
     allUsers = () => `${this.origin}${this.apiEndpoint}${this.userOperationEndpoint}/users`
 
     websocket = {
-      connect: () => `${this.origin}${this.wsConnectionEndpoint}`
+        connect: () => `${this.origin}${this.wsConnectionEndpoint}`,
+        sendTextMessage:  () => `${this.origin}/chat/message`,
     };
 
 }

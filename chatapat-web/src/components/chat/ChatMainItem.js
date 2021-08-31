@@ -5,11 +5,27 @@ import ChatConversationHistory from "./ChatConversationHistory";
 import InputControl from "../commons/control/InputControl";
 import {Button} from "primereact/button";
 import {faTelegramPlane} from "@fortawesome/free-brands-svg-icons";
+import useChatConversationHistory from "../../hooks/useChatConversationHistory";
 
 const ChatMainItem = props => {
+    const conversationId = props && props.conversationId ? props.conversationId : null;
+    const selectedUser = props && props.selectedUser ? props.selectedUser: null;
+
+    const
+        {
+            messages,
+            partnerInfo,
+            statusInfo,
+            generalErrorList,
+            fieldErrorFor,
+            registerValidationFor,
+            onTextSend,
+            isConversationPartnerMessage
+        } = useChatConversationHistory(conversationId, selectedUser);
+
     return (
         <>
-            <div className="container-fluid d-flex" style={{
+            <div className="container-fluid" style={{
                 border: '2px solid orange'
 
             }}>
@@ -20,7 +36,7 @@ const ChatMainItem = props => {
 
                     }}>
                         <Avatar
-                            image='https://www.audi.com/content/dam/gbp2/career/2021/diversity/1920x1440-mobile-diversity-audi-inclusion.jpg'
+                            image={partnerInfo && partnerInfo.picture? partnerInfo.picture: 'https://www.audi.com/content/dam/gbp2/career/2021/diversity/1920x1440-mobile-diversity-audi-inclusion.jpg'}
                             imageALt="conversation user profile image" shape="circle"
                             size="xlarge"
                         />
@@ -36,9 +52,8 @@ const ChatMainItem = props => {
                         }}
                              style={{wordBreak: 'break-all', whiteSpace: 'pre-wrap', border: '1px solid green'}}
                         >
-                            iasbajksbkbasdba a da sdklh dasdadfa afasfsdgfdsrgdegher
-                            weretgwegfssaghshgsdfgsdhfgsdrrfgsderghsergaergar garg argeagsdasdf
-                            asdfasdfasdgadgfwrgqagasdgawgwzsdfasd asf asdfasw
+                            {partnerInfo && partnerInfo.chatName?partnerInfo.chatName: (partnerInfo && partnerInfo.firstName && partnerInfo.lastname? `${partnerInfo.firstName}  ${partnerInfo.lastname}`: "iasbajksbkbasdba a da sdklh dasdadfa afasfsdgfdsrgdegher weretgwegfssaghshgsdfgsdhfgsdrrfgsderghsergaergar garg argeagsdasdf asdfasdfasdgadgfwrgqagasdgawgwzsdfasd asf asdfasw")}
+
                         </div>
                         <div style={{
                             border: '2px solid blue'
@@ -46,10 +61,10 @@ const ChatMainItem = props => {
                                     <span className="dot" style={{
                                         height: '0.8rem',
                                         width: '0.8rem',
-                                        backgroundColor: '#34A835',
+                                        backgroundColor: `${statusInfo && statusInfo.statusColor? statusInfo.statusColor: ''}`,
                                         borderRadius: '50%',
                                         display: 'inline-block',
-                                    }}/> <span>Active</span>
+                                    }}/> <span>{statusInfo && statusInfo.statusText? statusInfo.statusText: ''}</span>
 
                         </div>
                     </div>
@@ -112,7 +127,8 @@ const ChatMainItem = props => {
                     textAlign: 'center',
                 }}>
                 <ChatConversationHistory
-                    conversationId={props.conversationId}
+                messages={messages}
+                isConversationPartnerMessage={isConversationPartnerMessage}
                 />
             </div>
 
@@ -120,16 +136,15 @@ const ChatMainItem = props => {
             <div className="" style={{
                 border: '2px solid orange'
             }}>
-                <form noValidate id="sendConversationMessageForm" className="container-fluid" onSubmit={() => {
-                }}>
+                <form noValidate id="sendConversationMessageForm" className="container-fluid">
                     <div className="row">
 
                         <div className="col-9 pt-2 p-field" style={{border: '1px solid green'}}>
                             <InputControl
-                                // error={fieldErrorFor.searchConnection?.message}
-                                // registerRef={registerValidationFor.searchConnection}
-                                id="searchConnection"
-                                name="searchConnection"
+                                error={fieldErrorFor.chatTextMessage?.message}
+                                registerRef={registerValidationFor.chatTextMessage}
+                                id="sendTextMessage"
+                                name="chatTextMessage"
                                 type="text"
                                 placeholder="Type..."
 
@@ -143,6 +158,7 @@ const ChatMainItem = props => {
                                     className="send-btn"
                                     icon={<FontAwesomeIcon icon={faTelegramPlane} size="2x"
                                                            style={{color: '#20a8d8'}}/>}
+                                    onClick={onTextSend}
                                     tooltip={'Send'}
                                     tooltipOptions={{position: 'top'}}
                                     style={{border: '1px solid blue'}}

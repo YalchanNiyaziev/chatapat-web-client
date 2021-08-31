@@ -28,7 +28,7 @@ class ApiRequest {
 
     getUserProfileInfo = username => {
       return this.http.get(
-          this.serverApis.userProfileInfo(username),
+          this.serverApis.currentUserProfileInfo(username),
           this.requestHeaders('application/json')
       );
     };
@@ -44,6 +44,14 @@ class ApiRequest {
         return this.http.get(
           this.serverApis.conversationHistory(conversationId),
           this.requestHeaders('application/json'),
+        );
+    }
+
+    searchChatUsersInfo = searchData => {
+        return this.http.post(
+            this.serverApis.searchChatUsers(),
+            searchData,
+            this.requestHeaders('application/json'),
         );
     }
 
