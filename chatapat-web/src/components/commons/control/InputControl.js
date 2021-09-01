@@ -17,7 +17,7 @@ const InputControl = props => {
         hasInnerSubmit = props.innerSubmitLabel && props.onInnerSubmit;
 
     let inputElement = null;
-  const  inputClasses = props.error ? ' invalid-input' : '';
+  let  inputClasses = props.error ? ' invalid-input' : '';
 
     switch (props.type) {
         case 'text':

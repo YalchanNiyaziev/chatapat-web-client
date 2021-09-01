@@ -1,10 +1,11 @@
 import React from 'react';
 import 'font-awesome/css/font-awesome.min.css';
-import logo from './logo.svg';
 import './App.css';
 import {Route, Switch, withRouter} from "react-router-dom";
 import {useLocation} from "react-router";
 import {authenticatedRoutes, permittedAllRoutes} from "./routes/AppRoutes";
+// import { connect } from 'react-redux';
+
 
 const  App = props => {
   const location = useLocation();
@@ -19,7 +20,7 @@ const  App = props => {
         path={permittedAllRoutes[key].path}
         component={permittedAllRoutes[key].component}
         key={key}
-        exact={true}
+        exact={permittedAllRoutes[key].exact}
       />
   ));
   const authRoutes  = Object.keys(authenticatedRoutes).map(key => (
@@ -27,7 +28,7 @@ const  App = props => {
           path={authenticatedRoutes[key].path}
           component={authenticatedRoutes[key].component}
           key={key}
-          exact={true}
+          exact={authenticatedRoutes[key].exact}
       />
   ));
   // const routes = Object.keys()
@@ -56,4 +57,4 @@ const  App = props => {
 // const mapDispatchToProps = { getCurrentUser };
 //
 // export default connect(null, mapDispatchToProps)(withRouter(App));
-export default App;
+export default withRouter(App);

@@ -5,10 +5,12 @@ import ValidatorService from "../service/ValidatorService";
 import {authenticatedRoutes} from "../routes/AppRoutes";
 import {useHistory} from "react-router-dom";
 import axiosErrorHandler from '../http/AxiosErrorHandler';
+import AuthService from "../service/AuthService";
 
 
 const useFormLogin = props => {
     const api = new ApiRequest();
+    const authService = new AuthService()
     const validator = new ValidatorService();
     const {register, handleSubmit, errors} = useForm();
     const [generalErrorList, setGeneralErrorList] = useState([]);
@@ -22,9 +24,12 @@ const useFormLogin = props => {
                     // console.log(res);
                     // api.getAllUsers()
                     //     .then(res => res)
+                    //TODO move it to REDUX STORAGE
+                    authService.storeUsername(data.username);
                     history.push(authenticatedRoutes.main.path);
                 })
                 .catch( err => {
+                    console.log('login erro$', err);
                     if (err.response.status === 401) {
                         setGeneralErrorList([validator.errorMessages.WRONG_USERNAME_OR_PASSWORD]);
                     } else {
