@@ -1,5 +1,4 @@
 import ChatConversationsSidebar from "../components/chat/ChatConversationsSidebar";
-import {useParams} from "react-router-dom";
 import ChatUserConnectionSearch from "../components/chat/ChatUserConnectionSearch";
 import ChatUserProfileInfo from "../components/chat/ChatUserProfilInfo";
 import LogoutItem from "../components/logout/LogoutItem";
@@ -7,9 +6,9 @@ import ChatMainItem from "../components/chat/ChatMainItem";
 import useChatConversationHistory from "../hooks/useChatConversationHistory";
 
 const ChatHome = () => {
-    const {conversationId, selectedUser} = useParams()
+    // const {conversationId, selectedUser} = useParams()
     // const {disconnect} = useWebSocketConnection( {onMessageReceiveEventHandler: () => {}});
-    console.log('selected conversation id', conversationId);
+    // console.log('selected conversation id', conversationId);
 
     // const conversationId = props && props.conversationId ? props.conversationId : null;
     // const selectedUser = props && props.selectedUser ? props.selectedUser : null;
@@ -25,8 +24,10 @@ const ChatHome = () => {
             registerValidationFor,
             onTextSend,
             getConversationPartnerNames,
-            isConversationPartnerMessage
-        } = useChatConversationHistory(conversationId, selectedUser);
+            isConversationSelected,
+            isConversationPartnerMessage,
+            disconnect,
+        } = useChatConversationHistory();
 
     return (
         <div className="container-fluid card">
@@ -52,16 +53,15 @@ const ChatHome = () => {
                     {/*partner data*/}
 
                     <ChatMainItem
-                    conversationId={conversationId}
-                    selectedUser={selectedUser}
-                    partnerInfo={partnerInfo}
-                    statusInfo={statusInfo}
-                    messages={messages}
-                    isConversationPartnerMessage={isConversationPartnerMessage}
-                    bottomElement={bottomElement}
-                    fieldErrorFor={fieldErrorFor}
-                    registerValidationFor={registerValidationFor}
-                    onTextSend={onTextSend}
+                        isConversationSelected={isConversationSelected}
+                        partnerInfo={partnerInfo}
+                        statusInfo={statusInfo}
+                        messages={messages}
+                        isConversationPartnerMessage={isConversationPartnerMessage}
+                        bottomElement={bottomElement}
+                        fieldErrorFor={fieldErrorFor}
+                        registerValidationFor={registerValidationFor}
+                        onTextSend={onTextSend}
 
                     />
 
@@ -69,7 +69,7 @@ const ChatHome = () => {
                 <div className="col-2" style={{
                     border: '2px solid blue',
                 }}><LogoutItem
-                // logutCallbacks={[disconnect]}
+                    logutCallbacks={[disconnect]}
                 />
                 </div>
             </div>

@@ -2,7 +2,6 @@ import ServerApis from "./ServerApis";
 import SockJS from 'sockjs-client'
 import Stomp from 'stompjs';
 import AuthService from "../service/AuthService";
-import {text} from "@fortawesome/fontawesome-svg-core";
 
 class WebSocketCommunication {
     constructor() {

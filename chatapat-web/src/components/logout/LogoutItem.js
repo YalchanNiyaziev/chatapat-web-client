@@ -1,6 +1,6 @@
 import useAppLogout from "../../hooks/useAppLogout";
 import {Button} from "primereact/button";
-import {faPaperclip, faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
+import { faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const LogoutItem = props => {

@@ -2,13 +2,13 @@ import GeneralMessage from "../commons/GeneralMessage";
 import useFormLogin from "../../hooks/useFormLogin";
 import InputControl from "../commons/control/InputControl";
 import './Login.css';
-import {Link, NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 import chatapatLogo from '../../images/logo192.png';
 import {permittedAllRoutes} from "../../routes/AppRoutes";
 
 
 const LoginForm = props => {
-    let {getCartData, onSuccess} = props;
+    // let {getCartData, onSuccess} = props;
     const {
         registerValidationFor,
         onSubmit,

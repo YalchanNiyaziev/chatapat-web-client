@@ -1,4 +1,3 @@
-import {DataScroller} from "primereact/datascroller";
 import './ChatConversationHistory.css';
 
 const ChatConversationHistory = props => {

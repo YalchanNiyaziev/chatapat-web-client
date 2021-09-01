@@ -72,6 +72,10 @@ class ValidatorService {
                     statusInfo.statusText = 'Away';
                     statusInfo.statusColor = '#e91224';
                     break;
+                default:
+                    statusInfo.statusText = 'No info';
+                    statusInfo.statusColor = '#010a36';
+                    break;
             }
         }
         return statusInfo;

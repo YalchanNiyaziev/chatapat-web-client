@@ -8,7 +8,7 @@ const useWebSocketConnection = props => {
         if(props && props.onMessageReceiveEventHandler) {
             webSocketCommunication.initConnection(props.onMessageReceiveEventHandler);
         }
-    }, [webSocketCommunication])
+    }, [webSocketCommunication, props])
 
     const disconnect = () => {
         webSocketCommunication.closeConnection();

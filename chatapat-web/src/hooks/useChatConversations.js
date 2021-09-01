@@ -19,36 +19,36 @@ const useChatConversations = () => {
     }
 
 
-    useEffect(() => {
-        // TODO remove getting username and Do it with Redux
-        const username = autService.getUsername();
-        api.getUserConversations(username)
-            .then(res => {
-                console.log(res)
-                if(res.data) {
-                    const conversation = res.data.map(c => (
-                        {
-                            conversationId: c.conversationId,
-                            username: c.username,
-                            chatName: c.chatName,
-                            firstName: c.firstName,
-                            surName: c.surName,
-                            status: c.status,
-                            imageUrl: c.imageUrl,
-                            lastMessage: c.lastMessage,
-                            lastMessageSenderUsername: c.lastMessageSenderUsername,
-                            lastMessageTs: formatMessageTs(c.lastMessageTs),
-                            messageStatus: c.messageStatus,
-                        }
-                    ));
-                    setUserConversations(conversation);
-                }
-            })
-            .catch(err => {
-                const [errorList] = axiosErrorHandler(err);
-                setGeneralErrorList(errorList);
-            })
-    }, [api, autService]);
+    // useEffect(() => {
+    //     // TODO remove getting username and Do it with Redux
+    //     const username = autService.getUsername();
+    //     api.getUserConversations(username)
+    //         .then(res => {
+    //             console.log(res)
+    //             if(res.data) {
+    //                 const conversation = res.data.map(c => (
+    //                     {
+    //                         conversationId: c.conversationId,
+    //                         username: c.username,
+    //                         chatName: c.chatName,
+    //                         firstName: c.firstName,
+    //                         surName: c.surName,
+    //                         status: c.status,
+    //                         imageUrl: c.imageUrl,
+    //                         lastMessage: c.lastMessage,
+    //                         lastMessageSenderUsername: c.lastMessageSenderUsername,
+    //                         lastMessageTs: formatMessageTs(c.lastMessageTs),
+    //                         messageStatus: c.messageStatus,
+    //                     }
+    //                 ));
+    //                 setUserConversations(conversation);
+    //             }
+    //         })
+    //         .catch(err => {
+    //             const [errorList] = axiosErrorHandler(err);
+    //             setGeneralErrorList(errorList);
+    //         })
+    // }, [api, autService]);
 
     const formatMessageTs = messageTs => {
         if(messageTs) {

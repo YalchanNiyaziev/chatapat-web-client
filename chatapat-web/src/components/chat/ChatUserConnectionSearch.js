@@ -1,5 +1,4 @@
 import InputControl from "../commons/control/InputControl";
-import {Button} from "primereact/button";
 
 const ChatUserConnectionSearch = props => {
     return(

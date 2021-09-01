@@ -8,8 +8,8 @@ import {faTelegramPlane} from "@fortawesome/free-brands-svg-icons";
 
 const ChatMainItem = props => {
 
-    const getContent = (conversationId, selectedUser) => {
-        if(conversationId && selectedUser) {
+    const getContent = () => {
+        if (props && props.isConversationSelected) {
             return showConversationHistoryInfo();
         }
         return 'Welcome to chatapat. Select a conversation and type';
@@ -40,9 +40,7 @@ const ChatMainItem = props => {
                             width: '65%'
 
                         }}>
-                            <div style={{
-                                border: '2px solid blue'
-                            }}
+                            <div
                                  style={{wordBreak: 'break-all', whiteSpace: 'pre-wrap', border: '1px solid green'}}
                             >
                                 {props.partnerInfo && props.partnerInfo.chatName ? props.partnerInfo.chatName : (props.partnerInfo && props.partnerInfo.firstName && props.partnerInfo.lastname ? `${props.partnerInfo.firstName}  ${props.partnerInfo.lastname}` : "iasbajksbkbasdba a da sdklh dasdadfa afasfsdgfdsrgdegher weretgwegfssaghshgsdfgsdhfgsdrrfgsderghsergaergar garg argeagsdasdf asdfasdfasdgadgfwrgqagasdgawgwzsdfasd asf asdfasw")}
@@ -57,7 +55,8 @@ const ChatMainItem = props => {
                                         backgroundColor: `${props.statusInfo && props.statusInfo.statusColor ? props.statusInfo.statusColor : ''}`,
                                         borderRadius: '50%',
                                         display: 'inline-block',
-                                    }}/> <span>{props.statusInfo && props.statusInfo.statusText ? props.statusInfo.statusText : ''}</span>
+                                    }}/>
+                                <span>{props.statusInfo && props.statusInfo.statusText ? props.statusInfo.statusText : ''}</span>
 
                             </div>
                         </div>
@@ -130,7 +129,9 @@ const ChatMainItem = props => {
                 <div className="" style={{
                     border: '2px solid orange'
                 }}>
-                    <form noValidate id="sendConversationMessageForm" className="container-fluid">
+                    <form noValidate id="sendConversationMessageForm" className="container-fluid"
+                          onSubmit={props.onTextSend}
+                    >
                         <div className="row">
 
                             <div className="col-9 pt-2 p-field" style={{border: '1px solid green'}}>
@@ -148,11 +149,10 @@ const ChatMainItem = props => {
                             <div className="col-1" style={{border: '1px solid red'}}>
                                 <div id="sendMessageButton">
                                     <Button
-                                        type="button"
+                                        type="submit"
                                         className="send-btn"
                                         icon={<FontAwesomeIcon icon={faTelegramPlane} size="2x"
                                                                style={{color: '#20a8d8'}}/>}
-                                        onClick={props.onTextSend}
                                         tooltip={'Send'}
                                         tooltipOptions={{position: 'top'}}
                                         style={{border: '1px solid blue'}}
@@ -206,7 +206,7 @@ const ChatMainItem = props => {
         )
     }
     return (<>
-            {getContent(props.conversationId, props.selectedUser)}
+            {getContent()}
         </>
     );
 }

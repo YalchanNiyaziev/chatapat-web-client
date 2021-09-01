@@ -1,9 +1,8 @@
-import useChatConversations from "../../hooks/useChatConversations";
 import {DataScroller} from "primereact/datascroller";
 import {Avatar} from "primereact/avatar";
 import {Badge} from "primereact/badge";
 import ValidatorService from "../../service/ValidatorService";
-import {Link, useParams} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {authenticatedRoutes} from "../../routes/AppRoutes";
 
 
@@ -17,17 +16,19 @@ const getBadgeSeverityByUserStatus = partner => {
                 return 'warning'; // yellow
             case validator.userStatus.AWAY:
                 return 'danger'; // red
+            default:
+                return 'info';
             //blue -> info
         }
     }
 }
 const ChatConversationsSidebar = props => {
-    const {
-        conversations,
-        generalErrorList,
-        userInfo,
-        getConversationPartnerNames
-    } = useChatConversations();
+    // const {
+    //     conversations,
+    //     generalErrorList,
+    //     userInfo,
+    //     getConversationPartnerNames
+    // } = useChatConversations();
 
     const dataScrollerItemTemplate = item => {
         return (

@@ -1,6 +1,7 @@
 const tokenKey = 'token';
 const usernameKey = 'username';
 const userProfileImageKey = 'profileImage';
+const selectedConversationIdKey = 'selectedConversationId';
 
 export default class AuthService {
 
@@ -47,5 +48,22 @@ export default class AuthService {
 
     removeProfileImage = () => {
         return localStorage.removeItem(userProfileImageKey);
+    };
+
+    storeSelectedConversationId = conversationId => {
+        if (conversationId) {
+            return localStorage.setItem(selectedConversationIdKey, conversationId);
+        }
+    };
+
+    getSelectedConversationId = () => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem(selectedConversationIdKey);
+        }
+        return;
+    }
+
+    removeSelectedConversationId = () => {
+        return localStorage.removeItem(selectedConversationIdKey);
     }
 }
