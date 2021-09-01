@@ -17,7 +17,7 @@ export default class ServerApis {
 
     websocket = {
         connect: () => `${this.origin}${this.wsConnectionEndpoint}`,
-        sendTextMessage:  () => `${this.origin}/chat/message`,
+        sendTextMessage:  () => `/chat/message`,
     };
 
 }

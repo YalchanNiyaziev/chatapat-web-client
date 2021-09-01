@@ -30,27 +30,37 @@ class WebSocketCommunication {
                         this.stompClient.subscribe(`/user/queue/messages`, userSpecificMessage => {
                             console.log('You received user specific message' + userSpecificMessage);
                             this.connected = true;
-                            onMessageReceiveEventHandler(userSpecificMessage);
+                            const payload = JSON.parse(userSpecificMessage.body);
+                            console.log("Recieved MESSAGE PAYLOAD ", payload);
+                            onMessageReceiveEventHandler(payload);
                         });
                     }
                 );
             } else {
                 console.log("Can not find jwt")
             }
+        } else {
+            console.log("CAN NOT ESTABLISH WEB-SOCKED CONNECTION")
         }
     };
 
     closeConnection = () => {
-        if (this.connected) {
+        if (this.isConnected()) {
             this.stompClient.disconnect();
             this.wsClient.close();
             console.log("Successfully disconnected from websockets")
+        } else {
+            console.log("Error when closing websocket connection")
         }
-        console.log("Error when closing websocket connection")
     };
 
     sendTextMessage = (textMessage, receiver) => {
-        if (this.connected && textMessage && textMessage.length) {
+        console.log("@@@ connected: ", this.isConnected());
+        console.log("@@@@ MESSAGE", textMessage);
+        console.log("@@@@ Receiver", receiver)
+
+        if (this.isConnected() && textMessage && textMessage.length) {
+            console.log("@@@@ Message Sending");
             const payload = {
                 content: textMessage,
                 senderName: this.authService.getUsername(),
@@ -60,8 +70,16 @@ class WebSocketCommunication {
             this.stompClient.send(this.serverApis.websocket.sendTextMessage(),
                 {},
                 JSON.stringify(payload));
+        } else {
+            console.log("@@@@@@@@@@@@@@ CAN NOT SEND MESSAGE")
         }
+
     }
+
+    isConnected = () => {
+        return this.wsClient != null && this.stompClient != null;
+    }
+
 
 
 }

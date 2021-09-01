@@ -19,6 +19,14 @@ class ValidatorService {
             RECENTLY_ACTIVE: 'RECENTLY_ACTIVE',
             AWAY: 'AWAY',
         }
+
+        this.messageTypes = {
+            text: 'TEXT',
+            image: 'IMAGE',
+            video: 'VIDEO',
+            voice: 'VOICE',
+            file: 'FILE',
+        }
     }
 
     extractErrorsFromInvalidForm = (setErrorsFunction, setSuccess) => {

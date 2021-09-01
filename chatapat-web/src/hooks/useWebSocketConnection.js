@@ -14,8 +14,13 @@ const useWebSocketConnection = props => {
         webSocketCommunication.closeConnection();
     }
 
+    const sendTextMessage = (message, receiver) => {
+        webSocketCommunication.sendTextMessage(message, receiver);
+    }
+
     return {
         disconnect,
+        sendTextMessage,
     }
 
 };

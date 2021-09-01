@@ -1,29 +1,32 @@
 import ChatConversationsSidebar from "../components/chat/ChatConversationsSidebar";
 import {useParams} from "react-router-dom";
-import ChatConversationHistory from "../components/chat/ChatConversationHistory";
 import ChatUserConnectionSearch from "../components/chat/ChatUserConnectionSearch";
 import ChatUserProfileInfo from "../components/chat/ChatUserProfilInfo";
-import InputControl from "../components/commons/control/InputControl";
-import {Avatar} from "primereact/avatar";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {
-    faInfoCircle,
-    faMicrophone, faPaperclip,
-    faPaperPlane,
-    faPhoneAlt,
-    faSmile,
-    faVideo
-} from "@fortawesome/free-solid-svg-icons";
-import {Button} from "primereact/button";
-import {faTelegramPlane} from "@fortawesome/free-brands-svg-icons";
 import LogoutItem from "../components/logout/LogoutItem";
 import ChatMainItem from "../components/chat/ChatMainItem";
-import useWebSocketConnection from "../hooks/useWebSocketConnection";
+import useChatConversationHistory from "../hooks/useChatConversationHistory";
 
 const ChatHome = () => {
     const {conversationId, selectedUser} = useParams()
-    const {disconnect} = useWebSocketConnection( {onMessageReceiveEventHandler: () => {}});
+    // const {disconnect} = useWebSocketConnection( {onMessageReceiveEventHandler: () => {}});
     console.log('selected conversation id', conversationId);
+
+    // const conversationId = props && props.conversationId ? props.conversationId : null;
+    // const selectedUser = props && props.selectedUser ? props.selectedUser : null;
+    const
+        {
+            conversations,
+            messages,
+            partnerInfo,
+            statusInfo,
+            bottomElement,
+            generalErrorList,
+            fieldErrorFor,
+            registerValidationFor,
+            onTextSend,
+            getConversationPartnerNames,
+            isConversationPartnerMessage
+        } = useChatConversationHistory(conversationId, selectedUser);
 
     return (
         <div className="container-fluid card">
@@ -39,7 +42,10 @@ const ChatHome = () => {
                         textAlign: 'center',
                     }}>
 
-                        <ChatConversationsSidebar/>
+                        <ChatConversationsSidebar
+                            conversations={conversations}
+                            getConversationPartnerNames={getConversationPartnerNames}
+                        />
                     </div>
                 </div>
                 <div className="col-7">
@@ -47,13 +53,24 @@ const ChatHome = () => {
 
                     <ChatMainItem
                     conversationId={conversationId}
-                    selectedUser={selectedUser}/>
+                    selectedUser={selectedUser}
+                    partnerInfo={partnerInfo}
+                    statusInfo={statusInfo}
+                    messages={messages}
+                    isConversationPartnerMessage={isConversationPartnerMessage}
+                    bottomElement={bottomElement}
+                    fieldErrorFor={fieldErrorFor}
+                    registerValidationFor={registerValidationFor}
+                    onTextSend={onTextSend}
+
+                    />
 
                 </div>
                 <div className="col-2" style={{
                     border: '2px solid blue',
                 }}><LogoutItem
-                logutCallbacks={[disconnect]}/>
+                // logutCallbacks={[disconnect]}
+                />
                 </div>
             </div>
         </div>

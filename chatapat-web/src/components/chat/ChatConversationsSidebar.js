@@ -55,7 +55,7 @@ const ChatConversationsSidebar = props => {
                         // style={
                         //     {border: '1px solid blue',}
                         // }
-                    >{getConversationPartnerNames(item)}</div>
+                    >{props.getConversationPartnerNames(item)}</div>
                     <div className="last-message text-truncate text-"
                         // style={
                         //     {
@@ -75,15 +75,15 @@ const ChatConversationsSidebar = props => {
 
     }
 
-    console.log('conversations@', conversations)
+    console.log('conversations@', props.conversations)
     return (
             <div className="card">
                 <DataScroller
-                    value={conversations}
+                    value={props.conversations}
                     inline={true}
                     emptyMessage="There is no conversations yet."
                     itemTemplate={dataScrollerItemTemplate}
-                    rows={conversations.length}
+                    rows={props.conversations.length}
                 />
             </div>
     );

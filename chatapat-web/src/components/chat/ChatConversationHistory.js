@@ -1,5 +1,5 @@
 import {DataScroller} from "primereact/datascroller";
-import useWebSocketConnection from "../../hooks/useWebSocketConnection";
+import './ChatConversationHistory.css';
 
 const ChatConversationHistory = props => {
 
@@ -33,9 +33,11 @@ const ChatConversationHistory = props => {
 
 
     return (
-        <div className="container-fluid"
+        <div ref={props.bottomScrollElement}
+            className="container-fluid"
              style={{border: '1px solid black'}}>
             {displayMessages(props.messages, props.isConversationPartnerMessage)}
+            <div />
         </div>
     );
 
