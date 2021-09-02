@@ -26,6 +26,14 @@ class ApiRequest {
         );
     };
 
+    registration = data => {
+        return this.http.post(
+            this.serverApis.register(),
+            data,
+            this.requestHeaders('application/json'),
+        );
+    }
+
     getUserProfileInfo = username => {
       return this.http.get(
           this.serverApis.currentUserProfileInfo(username),

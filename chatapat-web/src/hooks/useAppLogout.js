@@ -1,6 +1,6 @@
 import AuthService from "../service/AuthService";
 import {useHistory} from "react-router-dom";
-import {permittedAllRoutes} from "../routes/AppRoutes";
+import {unauthenticatedRoutes} from "../routes/AppRoutes";
 
 const useAppLogout = props => {
     const authService = new AuthService();
@@ -16,7 +16,7 @@ const useAppLogout = props => {
         authService.removeToken();
         authService.removeUsername();
         authService.removeProfileImage();
-        history.push(permittedAllRoutes.login.path);
+        history.replace(unauthenticatedRoutes.login.path);
     }
     return {
         logout,

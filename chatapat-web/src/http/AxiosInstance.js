@@ -1,6 +1,6 @@
 import axios from "axios";
 import AuthService from "../service/AuthService";
-import {permittedAllRoutes} from "../routes/AppRoutes";
+import {unauthenticatedRoutes} from "../routes/AppRoutes";
 
 const axiosInstance = axios.create();
 const authService = new AuthService();
@@ -30,9 +30,11 @@ axiosInstance.interceptors.response.use(
         if (error && error.response && error.response.status) {
             switch (error.response.status) {
                 case 401:
-                    if (window.location.href !== window.location.origin + permittedAllRoutes.login.path) {
+                    if (window.location.href !== window.location.origin + unauthenticatedRoutes.login.path) {
                         authService.removeToken();
-                        window.location = window.location.origin + permittedAllRoutes.login.path;
+                        authService.removeUsername();
+                        authService.removeProfileImage();
+                        window.location = window.location.origin + unauthenticatedRoutes.login.path;
                     }
                     break;
                 default:

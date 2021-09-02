@@ -4,6 +4,8 @@ import {Tooltip} from "primereact/tooltip";
 import {InputSwitch} from 'primereact/inputswitch';
 import {FileUpload} from 'primereact/fileupload';
 import './InputControl.css';
+import {Calendar} from "primereact/calendar";
+import moment from "moment";
 
 
 const InputControl = props => {
@@ -63,6 +65,70 @@ const InputControl = props => {
                             checked={props.value || false}
                             name={name}
                         />
+                    )}
+                />
+            );
+            break;
+        case 'datepicker':
+            inputElement = (
+                <Controller
+                    defaultValue={props.value || null}
+                    control={props.control}
+                    name={props.name}
+                    rules={props.registerRef()}
+                    render={({ onChange, onBlur, value, name }) => (
+                        <>
+                            <Calendar
+                                {...props.elementConfig}
+                                showTime={props.showTime}
+                                value={value}
+                                id={props.id}
+                                onChange={e => {
+                                    if (props.onChange) {
+                                        props.onChange(e);
+                                    }
+                                    onChange(e.target.value);
+                                }}
+                                monthNavigator
+                                yearNavigator
+                                yearRange={`1905:${moment().year()}`}
+                                onBlur={props.blur}
+                                onFocus={props.onFocus}
+                                dateFormat={'yy-mm-dd'}
+                                showIcon={true}
+                                viewDate={props.viewDate}
+                                onViewDateChange={props.onViewDateChange}
+                            />
+                        </>
+                    )}
+                />
+            );
+            break;
+        case 'timepicker':
+            inputElement = (
+                <Controller
+                    defaultValue={props.value || null}
+                    control={props.control}
+                    name={props.name}
+                    rules={props.registerRef()}
+                    render={({ onChange, onBlur, value, name }) => (
+                        <>
+                            <Calendar
+                                value={value}
+                                id={props.id}
+                                onChange={e => {
+                                    if (props.onChange) {
+                                        props.onChange(e);
+                                    }
+                                    onChange(e.target.value);
+                                }}
+                                timeOnly
+                                showTime
+                                hourFormat="24"
+                                showIcon
+                                icon="pi pi-clock"
+                            />
+                        </>
                     )}
                 />
             );

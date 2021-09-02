@@ -1,5 +1,5 @@
 import {NavLink} from "react-router-dom";
-import {permittedAllRoutes} from "../../routes/AppRoutes";
+import {unauthenticatedRoutes} from "../../routes/AppRoutes";
 
 const RegistrationFormRedirector = () => {
     return (
@@ -7,7 +7,7 @@ const RegistrationFormRedirector = () => {
             <div className={'col-12 d-flex align-items-center justify-content-center my-2'}>
 
                 <h6>
-                    Don't have an account? <NavLink to={permittedAllRoutes.register}>Sign up</NavLink>
+                    Don't have an account? <NavLink to={`${unauthenticatedRoutes.register.path}`}>Sign up</NavLink>
                 </h6>
             </div>
         </div>
