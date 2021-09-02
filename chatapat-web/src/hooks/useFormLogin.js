@@ -26,7 +26,7 @@ const useFormLogin = props => {
                     //     .then(res => res)
                     //TODO move it to REDUX STORAGE
                     authService.storeUsername(data.username);
-                    history.push(authenticatedRoutes.main.path);
+                    history.replace(authenticatedRoutes.main.path);
                 })
                 .catch( err => {
                     console.log('login erro$', err);

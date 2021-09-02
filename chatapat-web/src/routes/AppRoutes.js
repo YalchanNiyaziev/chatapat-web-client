@@ -2,6 +2,7 @@ import Login from "../screens/Login";
 import {Register} from "../screens/Register";
 import Home from "../screens/Home";
 import ChatHome from "../screens/ChatHome";
+import NotFound from "../screens/NotFound";
 
 export const permittedAllRoutes = {
     base: {
@@ -10,6 +11,14 @@ export const permittedAllRoutes = {
         component: Home,
         exact: true,
     },
+    notFound: {
+        path: '/not-found',
+        key: 'notFoundResource',
+        component: NotFound,
+        exact: false,
+    }
+}
+export const unauthenticatedRoutes = {
     login: {
         path: '/login',
         key: 'login',

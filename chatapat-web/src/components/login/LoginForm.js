@@ -4,7 +4,7 @@ import InputControl from "../commons/control/InputControl";
 import './Login.css';
 import {Link} from "react-router-dom";
 import chatapatLogo from '../../images/logo192.png';
-import {permittedAllRoutes} from "../../routes/AppRoutes";
+import {unauthenticatedRoutes} from "../../routes/AppRoutes";
 
 
 const LoginForm = props => {
@@ -53,7 +53,7 @@ const LoginForm = props => {
             <div className="row">
                 <div className={'col-12 d-flex align-items-center justify-content-center mt-3'}>
                     <h6>
-                        <Link to={permittedAllRoutes.forgotPass}>Forgot Password?</Link>
+                        <Link to={`${unauthenticatedRoutes.forgotPass.path}`}>Forgot Password?</Link>
                     </h6>
                 </div>
             </div>
