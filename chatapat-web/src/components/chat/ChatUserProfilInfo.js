@@ -7,7 +7,7 @@ const ChatUserProfileInfo = props => {
 
 
     return (
-        <div className="float-left d-flex" style={{ border: '1px solid black'}}>
+        <div className="float-left d-flex w-100" style={{ border: '2px solid blue'}}>
             <div className="py-2" style={{ border: '1px solid red'}}>
                 <Avatar
                     image={userProfileInfo && userProfileInfo.picture? userProfileInfo.picture: ''}
@@ -16,7 +16,7 @@ const ChatUserProfileInfo = props => {
                     className="mx-2"
                 />
             </div>
-            <div className="h4 py-4 px-3 " style={{ wordBreak: 'break-all', whiteSpace: 'pre-wrap', border: '1px solid green'}}>{`${userProfileInfo && userProfileInfo.firstName? userProfileInfo.firstName: ''} ${userProfileInfo && userProfileInfo.lastname? userProfileInfo.lastname: ''}`}</div>
+            <div className="h4 py-4 px-3 " style={{ wordBreak: 'break-all', whiteSpace: 'pre-wrap', border: '1px solid green'}}>{`${userProfileInfo && userProfileInfo.firstName? userProfileInfo.firstName: ''} ${userProfileInfo && userProfileInfo.lastName? userProfileInfo.lastName: ''}`}</div>
             {/*<div style={{fontSize: '0.5rem', border: '1px solid green'}} c><i className="fa fa-ellipsis-v fa-4x float-right"></i></div>*/}
         </div>
     );

@@ -21,9 +21,11 @@ const useChatConversationHistory = () => {
     const [conversationPartnerInfo, setConversationPartnerInfo] = useState(null);
     const [partnerStatusInfo, setPartnerStatusInfo] = useState(null);
     const [generalErrorList, setGeneralErrorList] = useState([]);
+    const [searchResults, setSearchResults] = useState([]);
     const chatConversationBoxBottom = useRef(null);
     const {conversationId, selectedUser} = useParams()
     const [isConversationSelected, setConversationSelected] = useState(false);
+    const [visibleConnectionDialog, setVisibleConnectionDialog] = useState(false);
 
     //TODO move it to more generic place
     const formatMessageTs = useCallback(messageTs => {
@@ -173,13 +175,11 @@ const useChatConversationHistory = () => {
                                 username: res.data[0].username,
                                 chatName: res.data[0].chatName,
                                 firstName: res.data[0].firstName,
-                                lastname: res.data[0].lastname,
+                                lastName: res.data[0].lastName,
                                 birthDate: res.data[0].birthDate,
                                 gender: res.data[0].gender,
                                 status: res.data[0].status,
                                 picture: res.data[0].picture,
-                                locked: res.data[0].locked,
-                                closed: res.data[0].closed,
                                 address: res.data[0].address,
                             }
                         setConversationPartnerInfo(selectedPartnerInfo);
@@ -273,9 +273,74 @@ const useChatConversationHistory = () => {
         }
     }
 
+    const searchConnectionInputChangeHandler = searchFormData => {
+        console.log("Search FOrm", searchFormData);
+        if(searchFormData) {
+            console.log("Starting Search OP")
+            const searchRequest = {
+                username: searchFormData.searchByUsername,
+                chatName: searchFormData.searchByChatName,
+                firstName: searchFormData.searchByFirstName,
+                lastName: searchFormData.searchByLastName,
+                address: {
+                    country: searchFormData.searchByCountry,
+                    city: searchFormData.searchByCity,
+                }
+            }
+            api.searchChatUsersInfo(searchRequest)
+                .then(res => {
+                    if(res.data){
+                        console.log(res.data);
+                        const foundSearchResults = res.data.map(result => (
+                            {
+                                id: result.id,
+                                username: result.username,
+                                chatName: result.chatName,
+                                firstName: result.firstName,
+                                lastName: result.lastName,
+                                birthDate: result.birthDate,
+                                gender: result.gender,
+                                status: result.status,
+                                picture: result.picture,
+                                address: result.address,
+                                self: result.self,
+                                connected: result.connected,
+                                connectionRequested: result.pending,
+                            }
+                        ));
+                        setSearchResults(foundSearchResults);
+                    }
+                    else {
+                        console.log(res);
+                    }
+                })
+                .catch(err => {
+                    const [errorList] = axiosErrorHandler(err);
+                    setGeneralErrorList(errorList);
+                });
+        }
+    }
+
+    const showSearchDialogHandler = event => {
+        setVisibleConnectionDialog(!visibleConnectionDialog);
+    }
+
+    const closeSearchDialogHandler = event => {
+        setVisibleConnectionDialog(false);
+    }
+
     const registerValidationFor = {
         chatTextMessage: () => register(),
     };
+
+    const registerValidationForSearch = {
+        searchByUsername: () => register(),
+        searchByFirstName: () => register(),
+        searchByLastName: () => register(),
+        searchByChatName: () => register(),
+        searchByCountry: () => register(),
+        searchByCity: () => register(),
+    }
 
     const getConversationPartnerNames = partner => {
         if (!partner) {
@@ -293,6 +358,7 @@ const useChatConversationHistory = () => {
     return {
         conversations: userConversations,
         messages: conversationMessages,
+        searchResults,
         partnerInfo: conversationPartnerInfo,
         statusInfo: partnerStatusInfo,
         bottomElement: chatConversationBoxBottom,
@@ -300,10 +366,18 @@ const useChatConversationHistory = () => {
         isConversationSelected,
         isConversationPartnerMessage,
         getConversationPartnerNames,
+        showSearchConnectionDialog: visibleConnectionDialog,
+        closeSearchConnectionDialog: closeSearchDialogHandler,
         registerValidationFor,
+        registerValidationForSearch,
         fieldErrorFor: errors,
         onTextSend: handleSubmit(
             textMessageSendHandler,
+            validator.extractErrorsFromInvalidForm(setGeneralErrorList)
+        ),
+        onSearchCLick: showSearchDialogHandler,
+        onSearch: handleSubmit(
+            searchConnectionInputChangeHandler,
             validator.extractErrorsFromInvalidForm(setGeneralErrorList)
         ),
         disconnect,

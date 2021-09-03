@@ -57,7 +57,7 @@ const ChatConversationsSidebar = props => {
                         //     {border: '1px solid blue',}
                         // }
                     >{props.getConversationPartnerNames(item)}</div>
-                    <div className="last-message text-truncate text-"
+                    <div className="last-message text-truncate text-left"
                         // style={
                         //     {
                         //         border: '1px solid blue',
