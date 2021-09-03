@@ -24,7 +24,7 @@ const useUserProfileInfo = props => {
                         username: data.username,
                         chatName: data.chatName,
                         firstName: data.firstName,
-                        lastname: data.lastname,
+                        lastName: data.lastName,
                         birthDate: data.birthDate,
                         gender: data.gender,
                         status: data.status,

@@ -1,4 +1,4 @@
-import './ChatConversationHistory.css';
+import './ChatMainStyles.css';
 
 const ChatConversationHistory = props => {
 

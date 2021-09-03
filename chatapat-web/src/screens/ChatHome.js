@@ -4,6 +4,11 @@ import ChatUserProfileInfo from "../components/chat/ChatUserProfilInfo";
 import LogoutItem from "../components/logout/LogoutItem";
 import ChatMainItem from "../components/chat/ChatMainItem";
 import useChatConversationHistory from "../hooks/useChatConversationHistory";
+import {Dialog} from "primereact/dialog";
+import {Button} from "primereact/button";
+import {faBan, faComments, faPauseCircle, faSearch, faSmile, faUserFriends} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import MainActionButtonsContainer from "../components/chat/MainActionButtonsContainer";
 
 const ChatHome = () => {
     // const {conversationId, selectedUser} = useParams()
@@ -16,14 +21,20 @@ const ChatHome = () => {
         {
             conversations,
             messages,
+            searchResults,
             partnerInfo,
             statusInfo,
             bottomElement,
             generalErrorList,
             fieldErrorFor,
             registerValidationFor,
+            registerValidationForSearch,
             onTextSend,
+            onSearch,
+            onSearchCLick,
             getConversationPartnerNames,
+            showSearchConnectionDialog,
+            closeSearchConnectionDialog,
             isConversationSelected,
             isConversationPartnerMessage,
             disconnect,
@@ -34,7 +45,9 @@ const ChatHome = () => {
             <div className="row">
                 <div className="col-3">
                     <ChatUserProfileInfo/>
-                    <ChatUserConnectionSearch/>
+                    <MainActionButtonsContainer
+                    onSearch={onSearchCLick}/>
+
                     <div style={{
                         border: '2px solid green',
                         height: '85vh',
@@ -73,7 +86,20 @@ const ChatHome = () => {
                 />
                 </div>
             </div>
+            <div className="row">
+                <div className="container-fluid">
+                <ChatUserConnectionSearch
+                    registerValidationFor={registerValidationForSearch}
+                    fieldErrorFor={fieldErrorFor}
+                    onSubmit={onSearch}
+                    showSearchConnectionDialog={showSearchConnectionDialog}
+                    closeSearchConnectionDialog={closeSearchConnectionDialog}
+                    searchResults={searchResults}
+                />
+                </div>
+            </div>
         </div>
-    );
+    )
+        ;
 };
 export default ChatHome;

@@ -43,7 +43,7 @@ const ChatMainItem = props => {
                             <div
                                  style={{wordBreak: 'break-all', whiteSpace: 'pre-wrap', border: '1px solid green'}}
                             >
-                                {props.partnerInfo && props.partnerInfo.chatName ? props.partnerInfo.chatName : (props.partnerInfo && props.partnerInfo.firstName && props.partnerInfo.lastname ? `${props.partnerInfo.firstName}  ${props.partnerInfo.lastname}` : "iasbajksbkbasdba a da sdklh dasdadfa afasfsdgfdsrgdegher weretgwegfssaghshgsdfgsdhfgsdrrfgsderghsergaergar garg argeagsdasdf asdfasdfasdgadgfwrgqagasdgawgwzsdfasd asf asdfasw")}
+                                {props.partnerInfo && props.partnerInfo.chatName ? props.partnerInfo.chatName : (props.partnerInfo && props.partnerInfo.firstName && props.partnerInfo.lastName ? `${props.partnerInfo.firstName}  ${props.partnerInfo.lastName}` : "iasbajksbkbasdba a da sdklh dasdadfa afasfsdgfdsrgdegher weretgwegfssaghshgsdfgsdhfgsdrrfgsderghsergaergar garg argeagsdasdf asdfasdfasdgadgfwrgqagasdgawgwzsdfasd asf asdfasw")}
 
                             </div>
                             <div style={{
@@ -193,7 +193,7 @@ const ChatMainItem = props => {
                                                                style={{color: '#20a8d8'}}/>}
                                         tooltip={'Attachment'}
                                         tooltipOptions={{position: 'top'}}
-                                        style={{border: '1px solid blue'}}
+                                        style={{border: '1px solix`d blue'}}
                                     />
                                 </div>
 
