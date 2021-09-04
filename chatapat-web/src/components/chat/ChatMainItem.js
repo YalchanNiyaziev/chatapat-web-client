@@ -40,7 +40,7 @@ const ChatMainItem = props => {
                             width: '65%'
 
                         }}>
-                            <div
+                            <div className="font-xl"
                                  style={{wordBreak: 'break-all', whiteSpace: 'pre-wrap', border: '1px solid green'}}
                             >
                                 {props.partnerInfo && props.partnerInfo.chatName ? props.partnerInfo.chatName : (props.partnerInfo && props.partnerInfo.firstName && props.partnerInfo.lastName ? `${props.partnerInfo.firstName}  ${props.partnerInfo.lastName}` : "iasbajksbkbasdba a da sdklh dasdadfa afasfsdgfdsrgdegher weretgwegfssaghshgsdfgsdhfgsdrrfgsderghsergaergar garg argeagsdasdf asdfasdfasdgadgfwrgqagasdgawgwzsdfasd asf asdfasw")}

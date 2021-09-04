@@ -13,10 +13,13 @@ const useChatConversationHistory = () => {
 
     const api = useMemo(() => new ApiRequest(), []);
     const autService = useMemo(() => new AuthService(), []);
-    const validator = useMemo( () => new ValidatorService(), []);
+    const validator = useMemo(() => new ValidatorService(), []);
     // const webSocketCommunication = useMemo(() => new WebSocketCommunication(), []);
     const {register, handleSubmit, errors, setValue} = useForm();
     const [userConversations, setUserConversations] = useState([]);
+    const [blockedConnections, setBlockedConnections] = useState([]);
+    const [userConnections, setUserConnections] = useState([]);
+    const [awaitingConnections, setAwaitingConnections] = useState([]);
     const [conversationMessages, setConversationMessages] = useState([]);
     const [conversationPartnerInfo, setConversationPartnerInfo] = useState(null);
     const [partnerStatusInfo, setPartnerStatusInfo] = useState(null);
@@ -26,6 +29,23 @@ const useChatConversationHistory = () => {
     const {conversationId, selectedUser} = useParams()
     const [isConversationSelected, setConversationSelected] = useState(false);
     const [visibleConnectionDialog, setVisibleConnectionDialog] = useState(false);
+
+    const selectedDisplayItemsTypes = useMemo(() => ({
+        conversations: 'CONVERSATIONS',
+        blocks: 'BLOCKED_CONNECTIONS',
+        awaiting: 'AWAITING_FOR_REVIEW_CONNECTIONS_REQUESTS',
+        connections: 'ACTIVE_CONNECTIONS',
+    }), []);
+
+    // const selectedDisplayItemsTypes = {
+    //     conversations: 'CONVERSATIONS',
+    //     blocks: 'BLOCKED_CONNECTIONS',
+    //     awaiting: 'AWAITING_FOR_REVIEW_CONNECTIONS_REQUESTS',
+    //     connections: 'ACTIVE_CONNECTIONS',
+    // };
+
+
+    const [typeSidebarItems, setTypeSidebarItems] = useState(selectedDisplayItemsTypes.conversations);
 
     //TODO move it to more generic place
     const formatMessageTs = useCallback(messageTs => {
@@ -39,7 +59,7 @@ const useChatConversationHistory = () => {
         console.log("receive Message@@@", receivedMessage);
         console.log(receivedMessage.conversationId);
         console.log(receivedMessage.content);
-        const activeConvId= autService.getSelectedConversationId();
+        const activeConvId = autService.getSelectedConversationId();
         if (receivedMessage && receivedMessage.conversationId
             && receivedMessage.content && receivedMessage.type
             && receivedMessage.messageTs && receivedMessage.senderInfo
@@ -127,10 +147,13 @@ const useChatConversationHistory = () => {
         }
     };
 
-    const {sendTextMessage, disconnect} = useWebSocketConnection({onMessageReceiveEventHandler: textMessageReceiveHandler});
+    const {
+        sendTextMessage,
+        disconnect
+    } = useWebSocketConnection({onMessageReceiveEventHandler: textMessageReceiveHandler});
 
 
-    const getUserConversations = useCallback( () => {
+    const getUserConversations = useCallback(() => {
         const username = autService.getUsername();
         api.getUserConversations(username)
             .then(res => {
@@ -160,7 +183,7 @@ const useChatConversationHistory = () => {
             });
     }, [autService, api, formatMessageTs]);
 
-    const getChatHistory= useCallback(() => {
+    const getChatHistory = useCallback(() => {
         if (conversationId && selectedUser) {
             console.log('selected conversation id', conversationId);
             console.log('selected username', selectedUser);
@@ -210,10 +233,78 @@ const useChatConversationHistory = () => {
                 .catch(err => {
                     const [errorList] = axiosErrorHandler(err);
                     setGeneralErrorList(errorList);
-                })
+                });
         }
-    }, [api, validator,autService, conversationId, selectedUser, formatMessageTs]);
+    }, [api, validator, autService, conversationId, selectedUser, formatMessageTs]);
 
+    const getValidUserConnections = useCallback(() => {
+        api.getUserConnections(autService.getUsername())
+            .then(res => {
+                if (res.data) {
+                    const connections = res.data.map(b => ({
+                        id: b.id,
+                        blocked: b.blocked,
+                        connected: b.connected,
+                        connectionRequested: b.connectionRequested,
+                        updatedBy: b.updatedBy,
+                        partner: b.partner,
+                    }));
+                    setUserConnections(connections);
+                } else {
+                    console.log("There is no data in response ", res);
+                }
+            })
+            .catch(err => {
+                const [errorList] = axiosErrorHandler(err);
+                setGeneralErrorList(errorList);
+            });
+    }, [api, autService]);
+
+    const getBlockedConnections = useCallback(() => {
+        api.getUserBlockedConnections(autService.getUsername())
+            .then(res => {
+                if (res.data) {
+                    const blockedConnections = res.data.map(b => ({
+                        id: b.id,
+                        blocked: b.blocked,
+                        connected: b.connected,
+                        connectionRequested: b.connectionRequested,
+                        updatedBy: b.updatedBy,
+                        partner: b.partner,
+                    }));
+                    setBlockedConnections(blockedConnections);
+                } else {
+                    console.log("There is no data in response ", res);
+                }
+            })
+            .catch(err => {
+                const [errorList] = axiosErrorHandler(err);
+                setGeneralErrorList(errorList);
+            });
+    }, [api, autService]);
+
+    const getAwaitingReviewConnection = useCallback(() => {
+        api.getPendingConnections(autService.getUsername())
+            .then(res => {
+                if (res.data) {
+                    const connections = res.data.map(b => ({
+                        id: b.id,
+                        blocked: b.blocked,
+                        connected: b.connected,
+                        connectionRequested: b.connectionRequested,
+                        updatedBy: b.updatedBy,
+                        partner: b.partner,
+                    }));
+                    setAwaitingConnections(connections);
+                } else {
+                    console.log("There is no data in response ", res);
+                }
+            })
+            .catch(err => {
+                const [errorList] = axiosErrorHandler(err);
+                setGeneralErrorList(errorList);
+            });
+    }, [api, autService]);
 
     useEffect(() => {
         console.log("YOU ARE IN USE EFFECT OF CHAT CONVERSATION")
@@ -229,6 +320,25 @@ const useChatConversationHistory = () => {
 
 
     useEffect(() => {
+        console.log("Second effect")
+        switch (typeSidebarItems) {
+            case selectedDisplayItemsTypes.connections:
+                getValidUserConnections();
+                break
+            case selectedDisplayItemsTypes.blocks:
+                getBlockedConnections();
+                break;
+            case selectedDisplayItemsTypes.awaiting:
+                getAwaitingReviewConnection();
+                break;
+            default:
+                getUserConversations();
+                break;
+        }
+    }, [typeSidebarItems, getValidUserConnections, getBlockedConnections, getUserConversations, getAwaitingReviewConnection, selectedDisplayItemsTypes]);
+
+
+    useEffect(() => {
         if (chatConversationBoxBottom && chatConversationBoxBottom.current) {
             chatConversationBoxBottom.current.scrollIntoView({
                 behavior: 'auto',
@@ -237,7 +347,6 @@ const useChatConversationHistory = () => {
             });
         }
     });
-
 
 
     const isConversationPartnerMessage = message => {
@@ -275,7 +384,7 @@ const useChatConversationHistory = () => {
 
     const searchConnectionInputChangeHandler = searchFormData => {
         console.log("Search FOrm", searchFormData);
-        if(searchFormData) {
+        if (searchFormData) {
             console.log("Starting Search OP")
             const searchRequest = {
                 username: searchFormData.searchByUsername,
@@ -289,7 +398,7 @@ const useChatConversationHistory = () => {
             }
             api.searchChatUsersInfo(searchRequest)
                 .then(res => {
-                    if(res.data){
+                    if (res.data) {
                         console.log(res.data);
                         const foundSearchResults = res.data.map(result => (
                             {
@@ -309,8 +418,7 @@ const useChatConversationHistory = () => {
                             }
                         ));
                         setSearchResults(foundSearchResults);
-                    }
-                    else {
+                    } else {
                         console.log(res);
                     }
                 })
@@ -318,6 +426,28 @@ const useChatConversationHistory = () => {
                     const [errorList] = axiosErrorHandler(err);
                     setGeneralErrorList(errorList);
                 });
+        }
+    }
+
+    const displayBlockedConnectionsHandler = () => {
+        if (typeSidebarItems !== selectedDisplayItemsTypes.blocks) {
+            setTypeSidebarItems(selectedDisplayItemsTypes.blocks);
+        }
+    }
+
+    const displayConversationsHandler = () => {
+        setTypeSidebarItems(selectedDisplayItemsTypes.conversations);
+    }
+
+    const displayValidConnectionsHandler = () => {
+        if (typeSidebarItems !== selectedDisplayItemsTypes.connections) {
+            setTypeSidebarItems(selectedDisplayItemsTypes.connections);
+        }
+    }
+
+    const displayAwaitingConnectionsHandler = () => {
+        if (typeSidebarItems !== selectedDisplayItemsTypes.awaiting) {
+            setTypeSidebarItems(selectedDisplayItemsTypes.awaiting);
         }
     }
 
@@ -356,7 +486,10 @@ const useChatConversationHistory = () => {
     }
 
     return {
+        blockedConnections,
+        awaitingConnections,
         conversations: userConversations,
+        connections: userConnections,
         messages: conversationMessages,
         searchResults,
         partnerInfo: conversationPartnerInfo,
@@ -381,6 +514,12 @@ const useChatConversationHistory = () => {
             validator.extractErrorsFromInvalidForm(setGeneralErrorList)
         ),
         disconnect,
+        selectedDisplayItemsTypes,
+        typeSidebarItems,
+        displayBlockedConnectionsHandler,
+        displayConversationsHandler,
+        displayValidConnectionsHandler,
+        displayAwaitingConnectionsHandler,
 
     };
 

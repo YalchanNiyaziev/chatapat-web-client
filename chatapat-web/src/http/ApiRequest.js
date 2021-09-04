@@ -48,6 +48,27 @@ class ApiRequest {
         );
     };
 
+    getUserConnections = username => {
+        return this.http.get(
+            this.serverApis.validConnections(username),
+            this.requestHeaders('application/json'),
+        );
+    };
+
+    getPendingConnections = username => {
+        return this.http.get(
+            this.serverApis.pendingConnections(username),
+            this.requestHeaders('application/json'),
+        );
+    };
+
+    getUserBlockedConnections = username => {
+        return this.http.get(
+            this.serverApis.blockedConnections(username),
+            this.requestHeaders('application/json'),
+        );
+    };
+
     getChatHistory = conversationId => {
         return this.http.get(
           this.serverApis.conversationHistory(conversationId),

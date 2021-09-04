@@ -19,7 +19,10 @@ const ChatHome = () => {
     // const selectedUser = props && props.selectedUser ? props.selectedUser : null;
     const
         {
+            blockedConnections,
+            awaitingConnections,
             conversations,
+            connections,
             messages,
             searchResults,
             partnerInfo,
@@ -38,6 +41,12 @@ const ChatHome = () => {
             isConversationSelected,
             isConversationPartnerMessage,
             disconnect,
+            selectedDisplayItemsTypes,
+            typeSidebarItems,
+            displayBlockedConnectionsHandler,
+            displayConversationsHandler,
+            displayValidConnectionsHandler,
+            displayAwaitingConnectionsHandler,
         } = useChatConversationHistory();
 
     return (
@@ -46,7 +55,12 @@ const ChatHome = () => {
                 <div className="col-3">
                     <ChatUserProfileInfo/>
                     <MainActionButtonsContainer
-                    onSearch={onSearchCLick}/>
+                    onSearch={onSearchCLick}
+                    onConversation={displayConversationsHandler}
+                    onBlocks={displayBlockedConnectionsHandler}
+                    onConnection={displayValidConnectionsHandler}
+                    onConnectionRequest={displayAwaitingConnectionsHandler}
+                    />
 
                     <div style={{
                         border: '2px solid green',
@@ -58,7 +72,12 @@ const ChatHome = () => {
 
                         <ChatConversationsSidebar
                             conversations={conversations}
+                            blockedConnections={blockedConnections}
+                            awaitingConnections={awaitingConnections}
+                            connections={connections}
                             getConversationPartnerNames={getConversationPartnerNames}
+                            selectedDisplayItemsTypes={selectedDisplayItemsTypes}
+                            typeSidebarItems={typeSidebarItems}
                         />
                     </div>
                 </div>
