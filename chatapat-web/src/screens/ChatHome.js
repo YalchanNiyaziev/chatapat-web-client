@@ -47,12 +47,18 @@ const ChatHome = () => {
             displayConversationsHandler,
             displayValidConnectionsHandler,
             displayAwaitingConnectionsHandler,
+            sendUserConnectionRequest,
+            acceptUserConnectionRequest,
+            removeUserConnection,
+            blockUserConnection,
+            unblockUserConnection,
+            spinner,
         } = useChatConversationHistory();
 
     return (
         <div className="container-fluid card">
             <div className="row">
-                <div className="col-3">
+                <div className="col-4">
                     <ChatUserProfileInfo/>
                     <MainActionButtonsContainer
                     onSearch={onSearchCLick}
@@ -78,6 +84,10 @@ const ChatHome = () => {
                             getConversationPartnerNames={getConversationPartnerNames}
                             selectedDisplayItemsTypes={selectedDisplayItemsTypes}
                             typeSidebarItems={typeSidebarItems}
+                            onAcceptConnection={acceptUserConnectionRequest}
+                            onRemoveConnection = {removeUserConnection}
+                            onBlockConnection={blockUserConnection}
+                            onUnblockConnection={unblockUserConnection}
                         />
                     </div>
                 </div>
@@ -98,7 +108,7 @@ const ChatHome = () => {
                     />
 
                 </div>
-                <div className="col-2" style={{
+                <div className="col-1" style={{
                     border: '2px solid blue',
                 }}><LogoutItem
                     logutCallbacks={[disconnect]}
@@ -114,6 +124,12 @@ const ChatHome = () => {
                     showSearchConnectionDialog={showSearchConnectionDialog}
                     closeSearchConnectionDialog={closeSearchConnectionDialog}
                     searchResults={searchResults}
+                    onUserDetailsShow={()=> console.log('Show user details in progress')}
+                    onBlockConnection={blockUserConnection}
+                    onRemoveUserConnection={removeUserConnection}
+                    onSendConnectionRequest={sendUserConnectionRequest}
+                    onAcceptConnectionRequest={acceptUserConnectionRequest}
+                    spinner={spinner}
                 />
                 </div>
             </div>

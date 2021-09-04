@@ -18,6 +18,11 @@ export default class ServerApis {
     validConnections = username => `${this.origin}${this.apiEndpoint}${this.userConnectionsEndpoint}/users/${username}`;
     pendingConnections = username => `${this.origin}${this.apiEndpoint}${this.userConnectionsEndpoint}/users/${username}/pending-connections`
     blockedConnections = username => `${this.origin}${this.apiEndpoint}${this.userConnectionsEndpoint}/users/${username}/blocks`
+    blockConnection = (username, blockedUsername) => `${this.origin}${this.apiEndpoint}${this.userConnectionsEndpoint}/users/${username}-${blockedUsername}/blocks`;
+    unblockConnection = (username, unblockedUsername) => `${this.origin}${this.apiEndpoint}${this.userConnectionsEndpoint}/users/${username}-${unblockedUsername}/blocks`;
+    removeConnection = (username, removedUsername) => `${this.origin}${this.apiEndpoint}${this.userConnectionsEndpoint}/users/${username}-${removedUsername}`;
+    sendConnectionRequest = senderUsername => `${this.origin}${this.apiEndpoint}${this.userConnectionsEndpoint}/users/${senderUsername}/pending-connections`;
+    acceptConnectionRequest = (username, acceptedUsername) => `${this.origin}${this.apiEndpoint}${this.userConnectionsEndpoint}/users/${username}-${acceptedUsername}/pending-connections`;
 
     websocket = {
         connect: () => `${this.origin}${this.wsConnectionEndpoint}`,

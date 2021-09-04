@@ -101,7 +101,8 @@ const ChatConversationsSidebar = props => {
             return '';
         }
         return (
-            <div className="d-flex py-2">
+            <div className="d-flex py-2"                     style={{border: '1px solid red'}}
+            >
                 <div
                     style={{border: '1px solid blue'}}
                     className="col-2 ">
@@ -134,7 +135,7 @@ const ChatConversationsSidebar = props => {
                             type="button"
                             tooltip="Remove"
                             tooltipOptions={{position: 'bottom'}}
-                            onClick={() => item.partner.username}
+                            onClick={() => props.onRemoveConnection(item.partner.username)}
                             style={{color: 'white', backgroundColor: 'darkorange', border: '1px solid darkorange'}}
                         />
                     </div>
@@ -147,7 +148,7 @@ const ChatConversationsSidebar = props => {
                             tooltip="Block"
                             type="button"
                             tooltipOptions={{position: 'bottom'}}
-                            onClick={() => item.partner.username}
+                            onClick={() => props.onBlockConnection(item.partner.username)}
                         />
                     </div>
                     <div className="conversation-details p-2"
@@ -204,7 +205,7 @@ const ChatConversationsSidebar = props => {
                             icon={<FontAwesomeIcon icon={faUserCheck}/>}
                             tooltip="Accept"
                             tooltipOptions={{position: 'bottom'}}
-                            onClick={() => item.partner.username}
+                            onClick={() => props.onAcceptConnection(item.partner.username)}
                             style={{color: 'white', backgroundColor: '#1171e0', border: '1px solid #ffba01'}}
                         />
                     </div>
@@ -230,7 +231,7 @@ const ChatConversationsSidebar = props => {
                             tooltip="Block"
                             type="button"
                             tooltipOptions={{position: 'bottom'}}
-                            onClick={() => item.partner.username}
+                            onClick={() => props.onBlockConnection(item.partner.username)}
                         />
                     </div>
                     <div className="conversation-details p-1"
@@ -289,7 +290,7 @@ const ChatConversationsSidebar = props => {
                             icon="fa fa-unlock"
                             tooltip="Unblock"
                             tooltipOptions={{position: 'bottom'}}
-                            onClick={() => item.partner.username}
+                            onClick={() => props.onUnblockConnection(item.partner.username)}
                         />
                     </div>
                     <div className="conversation-details p-2 "

@@ -4,9 +4,15 @@ import {Button} from "primereact/button";
 import {DataScroller} from "primereact/datascroller";
 import './ChatMainStyles.css';
 import {Avatar} from "primereact/avatar";
-import {Badge} from "primereact/badge";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faUserCheck, faUserFriends, faUserMinus, faUserPlus, faUserTimes} from "@fortawesome/free-solid-svg-icons";
+import {
+    faTimes,
+    faUserCheck,
+    faUserMinus,
+    faUserPlus,
+    faUserTimes
+} from "@fortawesome/free-solid-svg-icons";
+import {ProgressSpinner} from "primereact/progressspinner";
 
 const ChatUserConnectionSearch = props => {
     const {
@@ -17,30 +23,40 @@ const ChatUserConnectionSearch = props => {
         onSubmit,
         onUserDetailsShow,
         onSendConnectionRequest,
+        onCancelConnectionRequest,
         onAcceptConnectionRequest,
         onRejectConnectionRequest,
         onRemoveUserConnection,
         onBlockConnection,
         searchResults,
+        spinner,
     } = props;
 
     const connectionStatus = {
         currentAccount: 'Me',
         connectedAccount: 'Connected',
         unconnectedAccount: 'Unconnected',
-        connectionRequested: 'Awaiting for accepting'
+        connectionRequestReceived: 'You have received connection request',
+        connectionRequestSent: 'You have sent connection request',
 
     }
     const getConnectionStatus = connection => {
         console.log("CONNECTION", connection)
         if (connection.self && !connection.connectionRequested && !connection.connected) {
             return connectionStatus.currentAccount;
+
         } else if (connection.connected && !connection.self && !connection.connectionRequested) {
             return connectionStatus.connectedAccount;
+
         } else if (connection.connectionRequested && !connection.self && !connection.connected) {
-            return connectionStatus.connectionRequested;
+            if(connection.isSenderConnectionRequest){
+                return connectionStatus.connectionRequestSent;
+            }
+            return connectionStatus.connectionRequestReceived;
+
         } else if (!connection.self && !connection.connected && !connection.connectionRequested) {
             return connectionStatus.unconnectedAccount;
+
         } else {
             return '';
         }
@@ -143,7 +159,7 @@ const ChatUserConnectionSearch = props => {
                     </div>
                 </>);
             }
-            case connectionStatus.connectionRequested: {
+            case connectionStatus.connectionRequestReceived: {
                 return (<>
 
                     <div className="container-fluid">
@@ -171,6 +187,48 @@ const ChatUserConnectionSearch = props => {
                                 />
                             </div>
 
+
+                            <div className="col-3" style={{border: "1px solid purple"}}>
+                                <Button
+                                    className="p-button-raised p-button-danger"
+                                    icon="fa fa-ban"
+                                    tooltip="Block"
+                                    tooltipOptions={{position: 'bottom'}}
+                                    onClick={() => onBlockConnection(connection.username)}
+                                />
+                            </div>
+
+                            <div className="col-3" style={{border: "1px solid purple"}}>
+                                <Button
+                                    className="p-button-raised p-button-info"
+
+                                    icon="fa fa-info-circle"
+                                    tooltip="Show info"
+                                    tooltipOptions={{position: 'bottom'}}
+                                    onClick={() => onUserDetailsShow(connection.username)}
+                                />
+                            </div>
+
+                        </div>
+                    </div>
+                </>);
+            }
+
+            case connectionStatus.connectionRequestSent: {
+                return (<>
+                    <div className="container-fluid">
+                        <div className="row">
+                            <div className="col-3"></div>
+                            <div className="col-3" style={{border: "1px solid purple"}}>
+                                <Button
+                                    className="p-button-raised"
+                                    icon={<FontAwesomeIcon icon={faTimes}/>}
+                                    tooltip="Cancel Request"
+                                    tooltipOptions={{position: 'bottom'}}
+                                    onClick={() => onCancelConnectionRequest(connection.username)}
+                                    style={{color: 'white', backgroundColor: '#00bcd4', border: '1px solid #00bcd4'}}
+                                />
+                            </div>
 
                             <div className="col-3" style={{border: "1px solid purple"}}>
                                 <Button
@@ -230,6 +288,25 @@ const ChatUserConnectionSearch = props => {
                 </div>
             </div>
         );
+    }
+
+    const showSearchedData = () => {
+        if (spinner) {
+            return (<ProgressSpinner
+                strokeWidth="4"
+            />);
+        } else {
+            return(
+                <DataScroller
+
+                    header="List of user connections"
+                    value={searchResults}
+                    inline={true}
+                    emptyMessage="Search results will display here"
+                    itemTemplate={dataScrollerItemTemplate}
+                    rows={searchResults.length}
+                />);
+        }
     }
     return (<>
             <Dialog
@@ -321,16 +398,7 @@ const ChatUserConnectionSearch = props => {
                     overflowY: 'scroll',
                     // textAlign: 'center',
                 }}>
-
-                    <DataScroller
-
-                        header="List of user connections"
-                        value={searchResults}
-                        inline={true}
-                        emptyMessage="Search results will display here"
-                        itemTemplate={dataScrollerItemTemplate}
-                        rows={searchResults.length}
-                    />
+                    {showSearchedData()}
                 </div>
             </Dialog>
             {/*<div className="col">*/}
