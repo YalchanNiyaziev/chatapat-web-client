@@ -49,9 +49,11 @@ const ChatHome = () => {
             displayAwaitingConnectionsHandler,
             sendUserConnectionRequest,
             acceptUserConnectionRequest,
+            rejectUserConnectionRequest,
             removeUserConnection,
             blockUserConnection,
             unblockUserConnection,
+            cancelConnectionRequest,
             spinner,
         } = useChatConversationHistory();
 
@@ -85,6 +87,7 @@ const ChatHome = () => {
                             selectedDisplayItemsTypes={selectedDisplayItemsTypes}
                             typeSidebarItems={typeSidebarItems}
                             onAcceptConnection={acceptUserConnectionRequest}
+                            onRejectConnection={rejectUserConnectionRequest}
                             onRemoveConnection = {removeUserConnection}
                             onBlockConnection={blockUserConnection}
                             onUnblockConnection={unblockUserConnection}
@@ -129,6 +132,8 @@ const ChatHome = () => {
                     onRemoveUserConnection={removeUserConnection}
                     onSendConnectionRequest={sendUserConnectionRequest}
                     onAcceptConnectionRequest={acceptUserConnectionRequest}
+                    onRejectConnectionRequest={rejectUserConnectionRequest}
+                    onCancelConnectionRequest={cancelConnectionRequest}
                     spinner={spinner}
                 />
                 </div>

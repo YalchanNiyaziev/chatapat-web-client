@@ -114,10 +114,24 @@ class ApiRequest {
         );
     };
 
+    doCancelConnectionRequest = (canceledUsername, currentUsername) => {
+        return this.http.delete(
+            this.serverApis.cancelConnectionRequest(canceledUsername, currentUsername),
+            this.requestHeaders('application/json'),
+        );
+    };
+
     doAcceptConnectionRequest = (username, acceptedName) => {
         return this.http.put(
             this.serverApis.acceptConnectionRequest(username, acceptedName),
             null,
+            this.requestHeaders('application/json'),
+        );
+    };
+
+    doRejectConnectionRequest = (username, rejectedUsername) => {
+        return this.http.delete(
+            this.serverApis.rejectConnectionRequest(username, rejectedUsername),
             this.requestHeaders('application/json'),
         );
     };

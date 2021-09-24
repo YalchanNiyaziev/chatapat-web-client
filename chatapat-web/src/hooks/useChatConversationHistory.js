@@ -481,6 +481,42 @@ const useChatConversationHistory = () => {
         confirm(conformProps);
     }
 
+    const cancelConnectionRequest = canceledUsername => {
+
+        const cancelRequest = canceledUser => {
+            console.log("Canceled USER", canceledUser);
+            api.doCancelConnectionRequest(canceledUser, autService.getUsername())
+                .then(res => {
+                    if (visibleConnectionDialog) {
+                        const search = {
+                            searchByUsername: watch('searchByUsername'),
+                            searchByFirstName: watch('searchByFirstName'),
+                            searchByLastName: watch('searchByLastName'),
+                            searchByChatName: watch('searchByChatName'),
+                            searchByCountry: watch('searchByCountry'),
+                            searchByCity: watch('searchByCity'),
+                        }
+                        searchConnectionInputChangeHandler(search)
+                    }
+                    fetchSidebarDataBySelectedItemType();
+                })
+                .catch(err => {
+                    const [errorList] = axiosErrorHandler(err);
+                    setGeneralErrorList(errorList);
+                });
+        }
+        const conformProps = {
+            message: `Are you sure to cancel connection request from user with username ${canceledUsername}?`,
+            header: 'Confirm cancel user connection request',
+            icon: 'pi pi-exclamation-triangle',
+            accept: () => cancelRequest(canceledUsername),
+            reject: () => {
+            },
+        };
+
+        confirm(conformProps);
+    }
+
 
     const acceptUserConnectionRequest = acceptedUsername => {
         const acceptConnection = acceptedUser => {
@@ -511,6 +547,42 @@ const useChatConversationHistory = () => {
             header: 'Confirm accept user connection request',
             icon: 'pi pi-exclamation-triangle',
             accept: () => acceptConnection(acceptedUsername),
+            reject: () => {
+            },
+        };
+
+        confirm(conformProps);
+    }
+
+    const rejectUserConnectionRequest = rejectedUsername => {
+        const rejectConnection = rejectedUser => {
+            console.log("Rejected USER", rejectedUser);
+            api.doRejectConnectionRequest(autService.getUsername(), rejectedUser)
+                .then(res => {
+                    if (visibleConnectionDialog) {
+                        const search = {
+                            searchByUsername: watch('searchByUsername'),
+                            searchByFirstName: watch('searchByFirstName'),
+                            searchByLastName: watch('searchByLastName'),
+                            searchByChatName: watch('searchByChatName'),
+                            searchByCountry: watch('searchByCountry'),
+                            searchByCity: watch('searchByCity'),
+                        }
+                        searchConnectionInputChangeHandler(search)
+                    }
+                    fetchSidebarDataBySelectedItemType();
+                })
+                .catch(err => {
+                    const [errorList] = axiosErrorHandler(err);
+                    setGeneralErrorList(errorList);
+                });
+        }
+
+        const conformProps = {
+            message: `Are you sure to reject connection request from user with username ${rejectedUsername}?`,
+            header: 'Confirm reject user connection request',
+            icon: 'pi pi-exclamation-triangle',
+            accept: () => rejectConnection(rejectedUsername),
             reject: () => {
             },
         };
@@ -725,7 +797,9 @@ const useChatConversationHistory = () => {
             displayValidConnectionsHandler,
             displayAwaitingConnectionsHandler,
             sendUserConnectionRequest,
+            cancelConnectionRequest,
             acceptUserConnectionRequest,
+            rejectUserConnectionRequest,
             removeUserConnection,
             blockUserConnection,
             unblockUserConnection,

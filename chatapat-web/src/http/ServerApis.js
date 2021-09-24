@@ -22,8 +22,9 @@ export default class ServerApis {
     unblockConnection = (username, unblockedUsername) => `${this.origin}${this.apiEndpoint}${this.userConnectionsEndpoint}/users/${username}-${unblockedUsername}/blocks`;
     removeConnection = (username, removedUsername) => `${this.origin}${this.apiEndpoint}${this.userConnectionsEndpoint}/users/${username}-${removedUsername}`;
     sendConnectionRequest = senderUsername => `${this.origin}${this.apiEndpoint}${this.userConnectionsEndpoint}/users/${senderUsername}/pending-connections`;
+    cancelConnectionRequest = (canceledUsername, currentUsername) => `${this.origin}${this.apiEndpoint}${this.userConnectionsEndpoint}/users/${canceledUsername}-${currentUsername}/pending-connections`;
     acceptConnectionRequest = (username, acceptedUsername) => `${this.origin}${this.apiEndpoint}${this.userConnectionsEndpoint}/users/${username}-${acceptedUsername}/pending-connections`;
-
+    rejectConnectionRequest = (username, removedUsername) => `${this.origin}${this.apiEndpoint}${this.userConnectionsEndpoint}/users/${username}-${removedUsername}/pending-connections`;
     websocket = {
         connect: () => `${this.origin}${this.wsConnectionEndpoint}`,
         sendTextMessage: () => `/chat/message`,

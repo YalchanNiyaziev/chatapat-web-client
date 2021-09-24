@@ -218,7 +218,7 @@ const ChatConversationsSidebar = props => {
                             icon={<FontAwesomeIcon icon={faUserTimes}/>}
                             tooltip="Reject"
                             tooltipOptions={{position: 'bottom'}}
-                            onClick={() => item.partner.username}
+                            onClick={() => props.onRejectConnection(item.partner.username)}
                             style={{color: 'white', backgroundColor: '#ff5302', border: '1px solid #ffba01'}}
                         />
                     </div>
