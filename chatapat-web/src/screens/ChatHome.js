@@ -19,7 +19,10 @@ const ChatHome = () => {
     // const selectedUser = props && props.selectedUser ? props.selectedUser : null;
     const
         {
+            blockedConnections,
+            awaitingConnections,
             conversations,
+            connections,
             messages,
             searchResults,
             partnerInfo,
@@ -38,15 +41,34 @@ const ChatHome = () => {
             isConversationSelected,
             isConversationPartnerMessage,
             disconnect,
+            selectedDisplayItemsTypes,
+            typeSidebarItems,
+            displayBlockedConnectionsHandler,
+            displayConversationsHandler,
+            displayValidConnectionsHandler,
+            displayAwaitingConnectionsHandler,
+            sendUserConnectionRequest,
+            acceptUserConnectionRequest,
+            rejectUserConnectionRequest,
+            removeUserConnection,
+            blockUserConnection,
+            unblockUserConnection,
+            cancelConnectionRequest,
+            spinner,
         } = useChatConversationHistory();
 
     return (
         <div className="container-fluid card">
             <div className="row">
-                <div className="col-3">
+                <div className="col-4">
                     <ChatUserProfileInfo/>
                     <MainActionButtonsContainer
-                    onSearch={onSearchCLick}/>
+                    onSearch={onSearchCLick}
+                    onConversation={displayConversationsHandler}
+                    onBlocks={displayBlockedConnectionsHandler}
+                    onConnection={displayValidConnectionsHandler}
+                    onConnectionRequest={displayAwaitingConnectionsHandler}
+                    />
 
                     <div style={{
                         border: '2px solid green',
@@ -58,7 +80,17 @@ const ChatHome = () => {
 
                         <ChatConversationsSidebar
                             conversations={conversations}
+                            blockedConnections={blockedConnections}
+                            awaitingConnections={awaitingConnections}
+                            connections={connections}
                             getConversationPartnerNames={getConversationPartnerNames}
+                            selectedDisplayItemsTypes={selectedDisplayItemsTypes}
+                            typeSidebarItems={typeSidebarItems}
+                            onAcceptConnection={acceptUserConnectionRequest}
+                            onRejectConnection={rejectUserConnectionRequest}
+                            onRemoveConnection = {removeUserConnection}
+                            onBlockConnection={blockUserConnection}
+                            onUnblockConnection={unblockUserConnection}
                         />
                     </div>
                 </div>
@@ -79,7 +111,7 @@ const ChatHome = () => {
                     />
 
                 </div>
-                <div className="col-2" style={{
+                <div className="col-1" style={{
                     border: '2px solid blue',
                 }}><LogoutItem
                     logutCallbacks={[disconnect]}
@@ -95,6 +127,14 @@ const ChatHome = () => {
                     showSearchConnectionDialog={showSearchConnectionDialog}
                     closeSearchConnectionDialog={closeSearchConnectionDialog}
                     searchResults={searchResults}
+                    onUserDetailsShow={()=> console.log('Show user details in progress')}
+                    onBlockConnection={blockUserConnection}
+                    onRemoveUserConnection={removeUserConnection}
+                    onSendConnectionRequest={sendUserConnectionRequest}
+                    onAcceptConnectionRequest={acceptUserConnectionRequest}
+                    onRejectConnectionRequest={rejectUserConnectionRequest}
+                    onCancelConnectionRequest={cancelConnectionRequest}
+                    spinner={spinner}
                 />
                 </div>
             </div>

@@ -16,8 +16,7 @@ const MainActionButtonsContainer = props => {
                     />}
                     tooltip="Conversations"
                     tooltipOptions={{position: 'bottom'}}
-                    onClick={() => {
-                    }}
+                    onClick={onConversation}
                     // label="Conversations"
                 /></div>
             <div  style={{border: "1px solid purple", width: '20%'}}>
@@ -30,8 +29,7 @@ const MainActionButtonsContainer = props => {
                     />}
                     tooltip="Connections"
                     tooltipOptions={{position: 'bottom'}}
-                    onClick={() => {
-                    }}
+                    onClick={onConnection}
                     // label="Connections"
                 />
             </div>
@@ -44,8 +42,7 @@ const MainActionButtonsContainer = props => {
                     />}
                     tooltip="Requests"
                     tooltipOptions={{position: 'bottom'}}
-                    onClick={() => {
-                    }}
+                    onClick={onConnectionRequest}
                     // label="Requests"
                 /></div>
             <div  style={{border: "1px solid brown", width: '20%'}}>
@@ -57,8 +54,7 @@ const MainActionButtonsContainer = props => {
                     />}
                     tooltip="Blocked"
                     tooltipOptions={{position: 'bottom'}}
-                    onClick={() => {
-                    }}
+                    onClick={onBlocks}
                     // label="Blocks"
                 />
             </div>

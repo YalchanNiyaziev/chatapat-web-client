@@ -35,10 +35,10 @@ class ApiRequest {
     }
 
     getUserProfileInfo = username => {
-      return this.http.get(
-          this.serverApis.currentUserProfileInfo(username),
-          this.requestHeaders('application/json')
-      );
+        return this.http.get(
+            this.serverApis.currentUserProfileInfo(username),
+            this.requestHeaders('application/json')
+        );
     };
 
     getUserConversations = username => {
@@ -48,10 +48,31 @@ class ApiRequest {
         );
     };
 
+    getUserConnections = username => {
+        return this.http.get(
+            this.serverApis.validConnections(username),
+            this.requestHeaders('application/json'),
+        );
+    };
+
+    getPendingConnections = username => {
+        return this.http.get(
+            this.serverApis.pendingConnections(username),
+            this.requestHeaders('application/json'),
+        );
+    };
+
+    getUserBlockedConnections = username => {
+        return this.http.get(
+            this.serverApis.blockedConnections(username),
+            this.requestHeaders('application/json'),
+        );
+    };
+
     getChatHistory = conversationId => {
         return this.http.get(
-          this.serverApis.conversationHistory(conversationId),
-          this.requestHeaders('application/json'),
+            this.serverApis.conversationHistory(conversationId),
+            this.requestHeaders('application/json'),
         );
     }
 
@@ -63,9 +84,60 @@ class ApiRequest {
         );
     }
 
+    doBlockConnection = (username, blockedUsername) => {
+        return this.http.post(
+            this.serverApis.blockConnection(username, blockedUsername),
+            null,
+            this.requestHeaders('application/json'),
+        );
+    }
+
+    doUnblockConnection = (username, unblockedUsername) => {
+        return this.http.delete(
+            this.serverApis.unblockConnection(username, unblockedUsername),
+            this.requestHeaders('application/json'),
+        );
+    }
+
+    doRemoveConnection = (username, removedUsername) => {
+        return this.http.delete(
+            this.serverApis.removeConnection(username, removedUsername),
+            this.requestHeaders('application/json'),
+        );
+    }
+
+    doSendConnectionRequest = (senderName, data) => {
+        return this.http.post(
+            this.serverApis.sendConnectionRequest(senderName),
+            data,
+            this.requestHeaders('application/json'),
+        );
+    };
+
+    doCancelConnectionRequest = (canceledUsername, currentUsername) => {
+        return this.http.delete(
+            this.serverApis.cancelConnectionRequest(canceledUsername, currentUsername),
+            this.requestHeaders('application/json'),
+        );
+    };
+
+    doAcceptConnectionRequest = (username, acceptedName) => {
+        return this.http.put(
+            this.serverApis.acceptConnectionRequest(username, acceptedName),
+            null,
+            this.requestHeaders('application/json'),
+        );
+    };
+
+    doRejectConnectionRequest = (username, rejectedUsername) => {
+        return this.http.delete(
+            this.serverApis.rejectConnectionRequest(username, rejectedUsername),
+            this.requestHeaders('application/json'),
+        );
+    };
 
     //!!! only admin MUST has the athorities to do it
-    getAllUsers = () =>{
+    getAllUsers = () => {
         return this.http.get(
             this.serverApis.allUsers(),
             this.requestHeaders('application/json')
